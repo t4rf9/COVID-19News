@@ -1,20 +1,26 @@
 package com.example.covid_19news;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Objects;
 
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,12 +28,33 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        final TabLayout tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+            private int[][] actionId = new int[][]{
+                    {0, R.id.action_NewsTypesFragment_to_epiDataFragment, R.id.action_NewsTypesFragment_to_epiGraphFragment, R.id.action_NewsTypesFragment_to_scholarsFragment},
+                    {R.id.action_epiDataFragment_to_NewsTypesFragment, 0, R.id.action_epiDataFragment_to_epiGraphFragment, R.id.action_epiDataFragment_to_scholarsFragment},
+                    {R.id.action_epiGraphFragment_to_NewsTypesFragment, R.id.action_epiGraphFragment_to_epiDataFragment, 0, R.id.action_epiGraphFragment_to_scholarsFragment},
+                    {R.id.action_scholarsFragment_to_NewsTypesFragment, R.id.action_scholarsFragment_to_epiDataFragment, R.id.action_scholarsFragment_to_epiGraphFragment, 0}
+            };
+
+            private int[] nextAction;
+
+            @SuppressLint("ResourceAsColor")
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onTabSelected(TabLayout.Tab tab) {
+                Navigation.findNavController(findViewById(R.id.nav_host_fragment)).navigate(nextAction[tab.getPosition()]);
+            }
+
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                nextAction = actionId[tab.getPosition()];
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
     }
@@ -53,4 +80,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

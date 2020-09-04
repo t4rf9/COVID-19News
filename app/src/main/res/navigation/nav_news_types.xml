@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_news_types"
+    app:startDestination="@id/newsTypesFragment">
+
+    <fragment
+        android:id="@+id/newsTypesFragment"
+        android:name="com.example.covid_19news.NewsTypesFragment"
+        android:label="fragment_news_types"
+        tools:layout="@layout/fragment_news_types" />
+</navigation>
