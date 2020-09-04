@@ -2,23 +2,14 @@ package com.example.covid_19news;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
-
-import android.view.View;
-
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.Objects;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.Navigation;
+
+import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
     @Override
