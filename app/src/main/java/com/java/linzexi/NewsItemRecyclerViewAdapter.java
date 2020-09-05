@@ -1,4 +1,4 @@
-package com.example.covid_19news;
+package com.java.linzexi;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.covid_19news.dummy.DummyContent.DummyItem;
+import com.java.linzexi.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.covid_19news;
+package com.java.linzexi;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

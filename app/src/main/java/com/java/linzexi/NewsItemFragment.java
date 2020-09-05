@@ -1,4 +1,4 @@
-package com.example.covid_19news;
+package com.java.linzexi;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.covid_19news.dummy.DummyContent;
+import com.java.linzexi.dummy.DummyContent;
 
 /**
  * A fragment representing a list of Items.

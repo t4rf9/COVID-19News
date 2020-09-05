@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/NewsTypesFragment"
-        android:name="com.example.covid_19news.NewsTypesFragment"
+        android:name="com.java.linzexi.NewsTypesFragment"
         android:label="@string/news_type_fragment_label"
         tools:layout="@layout/fragment_news_types">
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/epiDataFragment"
-        android:name="com.example.covid_19news.EpiDataFragment"
+        android:name="com.java.linzexi.EpiDataFragment"
         android:label="epi_data_fragment"
         tools:layout="@layout/epi_data_fragment" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/epiGraphFragment"
-        android:name="com.example.covid_19news.EpiGraphFragment"
+        android:name="com.java.linzexi.EpiGraphFragment"
         android:label="epi_graph_fragment"
         tools:layout="@layout/epi_graph_fragment" >
         <action
@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/scholarsFragment"
-        android:name="com.example.covid_19news.ScholarsFragment"
+        android:name="com.java.linzexi.ScholarsFragment"
         android:label="scholars_fragment"
         tools:layout="@layout/scholars_fragment" >
         <action
