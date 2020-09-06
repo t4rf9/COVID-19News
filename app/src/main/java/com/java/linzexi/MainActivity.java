@@ -12,8 +12,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.Objects;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
