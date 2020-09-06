@@ -19,11 +19,6 @@ import com.google.android.material.tabs.TabLayout;
  */
 public class NewsTypesFragment extends Fragment {
 
-    // the fragment initialization parameter
-    private static final String NEWS_TYPE = "news_type";
-
-    private String mNewsType;
-
     public NewsTypesFragment() {
         // Required empty public constructor
     }
@@ -32,24 +27,15 @@ public class NewsTypesFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param newsType the type of news.
      * @return A new instance of fragment NewsTypesFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static NewsTypesFragment newInstance(String newsType) {
-        NewsTypesFragment fragment = new NewsTypesFragment();
-        Bundle args = new Bundle();
-        args.putString(NEWS_TYPE, newsType);
-        fragment.setArguments(args);
-        return fragment;
+    public static NewsTypesFragment newInstance(){
+        return new NewsTypesFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mNewsType = getArguments().getString(NEWS_TYPE);
-        }
     }
 
     @Override
@@ -64,5 +50,7 @@ public class NewsTypesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_all));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_news));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_paper));
     }
 }

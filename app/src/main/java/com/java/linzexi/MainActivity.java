@@ -1,53 +1,72 @@
 package com.java.linzexi;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.navigation.Navigation;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         final TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            private Fragment[] fragments = new Fragment[4];
 
-            private int[][] actionId = new int[][]{
-                    {0, R.id.action_NewsTypesFragment_to_epiDataFragment, R.id.action_NewsTypesFragment_to_epiGraphFragment, R.id.action_NewsTypesFragment_to_scholarsFragment},
-                    {R.id.action_epiDataFragment_to_NewsTypesFragment, 0, R.id.action_epiDataFragment_to_epiGraphFragment, R.id.action_epiDataFragment_to_scholarsFragment},
-                    {R.id.action_epiGraphFragment_to_NewsTypesFragment, R.id.action_epiGraphFragment_to_epiDataFragment, 0, R.id.action_epiGraphFragment_to_scholarsFragment},
-                    {R.id.action_scholarsFragment_to_NewsTypesFragment, R.id.action_scholarsFragment_to_epiDataFragment, R.id.action_scholarsFragment_to_epiGraphFragment, 0}
-            };
-
-            private int[] nextAction;
-
-            @SuppressLint("ResourceAsColor")
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Navigation.findNavController(findViewById(R.id.nav_host_fragment)).navigate(nextAction[tab.getPosition()]);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                int pos = tab.getPosition();
+                if (fragments[pos] == null) {
+                    switch (pos) {
+                        case 1:
+                            fragments[pos] = EpiDataFragment.newInstance();
+                            break;
+                        case 2:
+                            fragments[pos] = EpiGraphFragment.newInstance();
+                            break;
+                        case 3:
+                            fragments[pos] = ScholarsFragment.newInstance();
+                            break;
+                        default:
+                            fragments[pos] = NewsTypesFragment.newInstance();
+                            break;
+                    }
+                }
+                fragmentTransaction.replace(R.id.host_fragment, fragments[pos]);
+                fragmentTransaction.commit();
             }
 
-            @SuppressLint("ResourceAsColor")
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                nextAction = actionId[tab.getPosition()];
+
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                if (fragments[tab.getPosition()] == null)
+                    onTabSelected(tab);
             }
         });
+
+        /* make sure onTabSelected is called on start */
+        tabLayout.selectTab(tabLayout.getTabAt(0));
     }
 
     @Override
