@@ -1,4 +1,4 @@
-package com.example.covid_19news.dummy;
+package com.java.linzexi.dummy;
 
 import java.util.ArrayList;
 import java.util.HashMap;

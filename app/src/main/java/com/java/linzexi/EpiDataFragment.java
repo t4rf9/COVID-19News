@@ -1,4 +1,4 @@
-package com.example.covid_19news;
+package com.java.linzexi;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -12,24 +12,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ScholarsFragment extends Fragment {
+public class EpiDataFragment extends Fragment {
 
-    private ScholarsViewModel mViewModel;
+    private EpiDataViewModel mViewModel;
 
-    public static ScholarsFragment newInstance() {
-        return new ScholarsFragment();
+    public static EpiDataFragment newInstance() {
+        return new EpiDataFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.scholars_fragment, container, false);
+        return inflater.inflate(R.layout.epi_data_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(ScholarsViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(EpiDataViewModel.class);
         // TODO: Use the ViewModel
     }
 
