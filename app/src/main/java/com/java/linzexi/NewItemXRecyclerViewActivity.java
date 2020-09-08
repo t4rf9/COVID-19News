@@ -1,4 +1,4 @@
-package com.example.covid_19news;
+package com.java.linzexi;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
