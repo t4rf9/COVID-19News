@@ -11,14 +11,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NewsItemXRecyclerViewAdapter extends RecyclerView.Adapter<NewsItemXRecyclerViewAdapter.XRecyclerViewHolder> {
 
     private Context mContext;
+    private List<NewsItemDataModel> newsList = new ArrayList<>();
 
-    public NewsItemXRecyclerViewAdapter(Context context){
+    public NewsItemXRecyclerViewAdapter(Context context, List<NewsItemDataModel> l){
         mContext = context;
+        newsList.addAll(l);
     }
 
+    @NonNull
     @Override
     public XRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new XRecyclerViewHolder(LayoutInflater.from(mContext).inflate(R.layout.layout_recycler, parent,false));
@@ -26,7 +32,7 @@ public class NewsItemXRecyclerViewAdapter extends RecyclerView.Adapter<NewsItemX
 
     @Override
     public void onBindViewHolder(@NonNull XRecyclerViewHolder holder, final int position) {
-        holder.textView.setText("hello" + position);
+        holder.textView.setText(newsList.get(position).title.substring(0, 30) + "...");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,7 +43,7 @@ public class NewsItemXRecyclerViewAdapter extends RecyclerView.Adapter<NewsItemX
 
     @Override
     public int getItemCount() {
-        return 20;
+        return newsList.size();
     }
 
     @Override
