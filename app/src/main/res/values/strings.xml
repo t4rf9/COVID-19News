@@ -13,4 +13,6 @@
     <string name="tab_news_type_paper">论文</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_world_tttttt">HELLO WORLD TTTTTT</string>
+    <string name="ok">OK</string>
 </resources>

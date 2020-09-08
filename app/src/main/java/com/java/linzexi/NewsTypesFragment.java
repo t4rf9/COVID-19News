@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,9 @@ public class NewsTypesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FragmentManager manager = getChildFragmentManager();
+        NewsItemXRecyclerViewFragment newsFragment = new NewsItemXRecyclerViewFragment();
+        manager.beginTransaction().add(R.id.fl_container, newsFragment).commitAllowingStateLoss();
     }
 
     @Override
@@ -52,5 +56,6 @@ public class NewsTypesFragment extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_all));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_news));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_paper));
+
     }
 }
