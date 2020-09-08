@@ -37,9 +37,7 @@ public class NewsTypesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FragmentManager manager = getChildFragmentManager();
-        NewsItemXRecyclerViewFragment newsFragment = new NewsItemXRecyclerViewFragment();
-        manager.beginTransaction().add(R.id.fl_container, newsFragment).commitAllowingStateLoss();
+
     }
 
     @Override
@@ -56,6 +54,24 @@ public class NewsTypesFragment extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_all));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_news));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_paper));
+        FragmentManager manager = getChildFragmentManager();
+        final NewsItemXRecyclerViewFragment newsFragment = new NewsItemXRecyclerViewFragment();
+        manager.beginTransaction().add(R.id.fl_container, newsFragment).commitAllowingStateLoss();
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                newsFragment.changeShow(tab.getPosition());
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                onTabSelected(tab);
+            }
+        });
     }
 }

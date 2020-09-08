@@ -33,12 +33,17 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
     public XRecyclerView newsRecyclerView;
     private NetWork netWork = null;
     private String context = null;
+    private int type_now = 0;
+    List<NewsItemDataModel> wholeList = new ArrayList<>();
     List<NewsItemDataModel> newsList = new ArrayList<>();
+    List<NewsItemDataModel> paperList = new ArrayList<>();
     //private NewsItemXRecyclerViewAdapter newsRecyclerAdapter;
 
     private void loadNewsItem(){
         try{
+            wholeList.clear();
             newsList.clear();
+            paperList.clear();
             JSONObject obj = new JSONObject(context);
             JSONArray arr = obj.getJSONArray("datas");
             for(int i = 0; i < arr.length(); i ++){
@@ -47,41 +52,50 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
                 String type = object.getString("type");
                 String title = object.getString("title");
                 String time = object.getString("time");
-                newsList.add(new NewsItemDataModel(id, type, title, time));
+                wholeList.add(new NewsItemDataModel(id, type, title, time));
+                if(type.equals("news"))
+                    newsList.add(new NewsItemDataModel(id, type, title, time));
+                if(type.equals("paper"))
+                    paperList.add(new NewsItemDataModel(id, type, title, time));
             }
         }
         catch (JSONException e){
             e.printStackTrace();
-//            System.out.println("Why???????");
-//            Looper.prepare();
-//            Toast.makeText(getContext(),"文件解析错误！",Toast.LENGTH_SHORT).show();
-//            Looper.loop();
         }
 
+    }
+
+    public void changeShow(int type){
+        type_now = type;
+        if(type == 0){
+            newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), wholeList));
+        }else if(type == 1){
+            newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), newsList));
+        }else if(type == 2){
+            newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), paperList));
+        }
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         netWork = new NetWork("https://covid-dashboard.aminer.cn/api/dist/events.json");
+        context  = netWork.getStringResult();
+        if(context == null)
+            System.out.println("Connection Failed...");
+        else
+            loadNewsItem();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news_x_recycler_view, container, false);
-        context  = netWork.getStringResult();
-        if(context == null){
-            System.out.println("Connection Failed...");
-            return view;
-        }
-
-        loadNewsItem();
 
         newsRecyclerView = (XRecyclerView) view.findViewById(R.id.rv_main);
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         newsRecyclerView.addItemDecoration(new MyDecoration());
-        newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), newsList));
+        newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), wholeList));
         //XRecyclerView Settings
         newsRecyclerView.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
         View header = LayoutInflater.from(getContext()).inflate(R.layout.fragment_news_x_recycler_view, container, false);
@@ -98,8 +112,7 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
                         }
                         else{
                             loadNewsItem();
-                            newsList.remove(0);
-                            newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), newsList));
+                            changeShow(type_now);
                         }
 
                         newsRecyclerView.refreshComplete();
