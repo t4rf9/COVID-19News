@@ -1,0 +1,67 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context="com.java.linzexi.TypeEditFragment">
+
+    <Button
+        android:id="@+id/button_edit_completed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/complete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:animateLayoutChanges="false"
+        android:fadingEdge="horizontal|vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_edit_completed">
+
+        <Button
+            android:id="@+id/button_news_type_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:text="@string/tab_news_type_all"
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/button_news_type_news"
+            app:layout_constraintEnd_toStartOf="@+id/button_news_type_news"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button_news_type_news"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
+            android:text="@string/tab_news_type_news"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/button_news_type_paper"
+            app:layout_constraintStart_toEndOf="@+id/button_news_type_all"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_news_type_paper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:text="@string/tab_news_type_paper"
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/button_news_type_news"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/button_news_type_news" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

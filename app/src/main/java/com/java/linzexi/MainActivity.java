@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                     }
                 }
-                fragmentTransaction.replace(R.id.host_fragment, fragments[pos]);
+                fragmentTransaction.replace(R.id.host_fragment_container, fragments[pos]);
                 fragmentTransaction.commit();
             }
 
