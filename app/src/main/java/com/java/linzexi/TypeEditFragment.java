@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -84,6 +86,8 @@ public class TypeEditFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        final Animation shake = AnimationUtils.loadAnimation(getContext(), R.anim.rotate);
+        final Animation still = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
         view.findViewById(R.id.button_edit_completed).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,46 +126,55 @@ public class TypeEditFragment extends Fragment {
             }
         });
 
-        Button button_all = view.findViewById(R.id.button_news_type_all);
+        final Button button_all = view.findViewById(R.id.button_news_type_all);
+        button_all.setAnimation(shake);
         button_all.setBackgroundColor(requireActivity().getColor(all ? R.color.colorTypeSelected : R.color.colorTypeUnselected));
         button_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (all) {
                     view.setBackgroundColor(requireActivity().getColor(R.color.colorTypeUnselected));
+                    button_all.setAnimation(still);
                     all = false;
                 } else {
                     view.setBackgroundColor(requireActivity().getColor(R.color.colorTypeSelected));
+                    button_all.setAnimation(shake);
                     all = true;
                 }
             }
         });
 
-        Button button_news = view.findViewById(R.id.button_news_type_news);
+        final Button button_news = view.findViewById(R.id.button_news_type_news);
+        button_news.setAnimation(shake);
         button_news.setBackgroundColor(requireActivity().getColor(news ? R.color.colorTypeSelected : R.color.colorTypeUnselected));
         button_news.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (news) {
                     view.setBackgroundColor(requireActivity().getColor(R.color.colorTypeUnselected));
+                    button_news.setAnimation(still);
                     news = false;
                 } else {
                     view.setBackgroundColor(requireActivity().getColor(R.color.colorTypeSelected));
+                    button_news.setAnimation(shake);
                     news = true;
                 }
             }
         });
 
-        Button button_paper = view.findViewById(R.id.button_news_type_paper);
+        final Button button_paper = view.findViewById(R.id.button_news_type_paper);
+        button_paper.setAnimation(shake);
         button_paper.setBackgroundColor(requireActivity().getColor(paper ? R.color.colorTypeSelected : R.color.colorTypeUnselected));
         button_paper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (paper) {
                     view.setBackgroundColor(requireActivity().getColor(R.color.colorTypeUnselected));
+                    button_paper.setAnimation(still);
                     paper = false;
                 } else {
                     view.setBackgroundColor(requireActivity().getColor(R.color.colorTypeSelected));
+                    button_paper.setAnimation(shake);
                     paper = true;
                 }
             }
