@@ -30,15 +30,15 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
     //List<NewsItemDataModel> eventList = new ArrayList<>();
     List<NewsItemDataModel> newsList = new ArrayList<>();
     List<NewsItemDataModel> paperList = new ArrayList<>();
-    //private NewsItemXRecyclerViewAdapter newsRecyclerAdapter;
+    private NewsItemXRecyclerViewAdapter newsRecyclerAdapter;
     int []pages = new int[3];
 
     private void loadNewsItem(int type, int page){
         //type0:no use  1 for news  2 for paper
         if(type == 1)
-            netWork.changeURL("https://covid-dashboard.aminer.cn/api/events/list?type=news&page=" + page + "&size=50");
+            netWork.changeURL("https://covid-dashboard.aminer.cn/api/events/list?type=news&page=" + page);
         else if(type == 2){
-            netWork.changeURL("https://covid-dashboard.aminer.cn/api/events/list?type=paper&page=" + page + "&size=50");
+            netWork.changeURL("https://covid-dashboard.aminer.cn/api/events/list?type=paper&page=" + page);
         }
         else
             return ;
@@ -49,7 +49,7 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
             for(int i = 0; i < arr.length(); i ++){
                 JSONObject object = arr.getJSONObject(i);
                 String id = object.getString("_id");
-                String title = object.getString("content");
+                String title = object.getString("title");
                 String time = object.getString("date");
                 if(type == 1){
                     newsList.add(new NewsItemDataModel(id, "news", title, time));
@@ -71,32 +71,36 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
         if(pages[type] == 0){
             loadNewsItem(type, 1);
         }
-        if(type == 1)
-            newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), newsList));
-        else if(type == 2){
-            newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), paperList));
+        if(type == 1) {
+            newsRecyclerAdapter.upDateList(newsList);
         }
+        else if(type == 2){
+            newsRecyclerAdapter.upDateList(paperList);
+        }
+        newsRecyclerAdapter.notifyDataSetChanged();
     }
 
     public void refreshShow(){
         pages[type_now] = 0;
         loadNewsItem(type_now, 1);
-        if(type_now == 1)
-            newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), newsList));
-        else if(type_now == 2){
-            newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), paperList));
+        if(type_now == 1){
+            newsRecyclerAdapter.upDateList(newsList);
         }
+        else if(type_now == 2){
+            newsRecyclerAdapter.upDateList(paperList);
+        }
+        newsRecyclerAdapter.notifyDataSetChanged();
     }
 
     public void loadShow(){
         loadNewsItem(type_now, pages[type_now] + 1);
         if(type_now == 1){
-            newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), newsList));
+            newsRecyclerAdapter.upDateList(newsList);
         }
-
         else if(type_now == 2){
-            newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), paperList));
+            newsRecyclerAdapter.upDateList(paperList);
         }
+        newsRecyclerAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -113,8 +117,8 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
         newsRecyclerView = (XRecyclerView) view.findViewById(R.id.rv_main);
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         newsRecyclerView.addItemDecoration(new MyDecoration());
-        //newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), wholeList));
-        //XRecyclerView Settings
+        newsRecyclerAdapter = new NewsItemXRecyclerViewAdapter(getContext(), newsList);
+        newsRecyclerView.setAdapter(newsRecyclerAdapter);
         newsRecyclerView.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
         View header = LayoutInflater.from(getContext()).inflate(R.layout.fragment_news_x_recycler_view, container, false);
         newsRecyclerView.addHeaderView(header);
