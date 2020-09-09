@@ -13,6 +13,10 @@ public class NetWork {
     public NetWork(String website){
         websiteURL = website;
     }
+    public NetWork(){}
+    public void changeURL(String website){
+        websiteURL = website;
+    }
     private void run1(){
         System.out.println("build thread");
         Thread thread = new Thread(new Runnable() {

@@ -27,30 +27,38 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
     private NetWork netWork = null;
     private String context = null;
     private int type_now = 0;
-    List<NewsItemDataModel> wholeList = new ArrayList<>();
+    //List<NewsItemDataModel> eventList = new ArrayList<>();
     List<NewsItemDataModel> newsList = new ArrayList<>();
     List<NewsItemDataModel> paperList = new ArrayList<>();
     //private NewsItemXRecyclerViewAdapter newsRecyclerAdapter;
+    int []pages = new int[3];
 
-    private void loadNewsItem(){
+    private void loadNewsItem(int type, int page){
+        //type0:no use  1 for news  2 for paper
+        if(type == 1)
+            netWork.changeURL("https://covid-dashboard.aminer.cn/api/events/list?type=news&page=" + page + "&size=50");
+        else if(type == 2){
+            netWork.changeURL("https://covid-dashboard.aminer.cn/api/events/list?type=paper&page=" + page + "&size=50");
+        }
+        else
+            return ;
+        context = netWork.getStringResult();
         try{
-            wholeList.clear();
-            newsList.clear();
-            paperList.clear();
             JSONObject obj = new JSONObject(context);
-            JSONArray arr = obj.getJSONArray("datas");
+            JSONArray arr = obj.getJSONArray("data");
             for(int i = 0; i < arr.length(); i ++){
                 JSONObject object = arr.getJSONObject(i);
                 String id = object.getString("_id");
-                String type = object.getString("type");
-                String title = object.getString("title");
-                String time = object.getString("time");
-                wholeList.add(new NewsItemDataModel(id, type, title, time));
-                if(type.equals("news"))
-                    newsList.add(new NewsItemDataModel(id, type, title, time));
-                if(type.equals("paper"))
-                    paperList.add(new NewsItemDataModel(id, type, title, time));
+                String title = object.getString("content");
+                String time = object.getString("date");
+                if(type == 1){
+                    newsList.add(new NewsItemDataModel(id, "news", title, time));
+                }
+                if(type == 2){
+                    paperList.add(new NewsItemDataModel(id, "paper", title, time));
+                }
             }
+            pages[type] += 1;
         }
         catch (JSONException e){
             e.printStackTrace();
@@ -60,11 +68,33 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
 
     public void changeShow(int type){
         type_now = type;
-        if(type == 0){
-            newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), wholeList));
-        }else if(type == 1){
+        if(pages[type] == 0){
+            loadNewsItem(type, 1);
+        }
+        if(type == 1)
             newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), newsList));
-        }else if(type == 2){
+        else if(type == 2){
+            newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), paperList));
+        }
+    }
+
+    public void refreshShow(){
+        pages[type_now] = 0;
+        loadNewsItem(type_now, 1);
+        if(type_now == 1)
+            newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), newsList));
+        else if(type_now == 2){
+            newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), paperList));
+        }
+    }
+
+    public void loadShow(){
+        loadNewsItem(type_now, pages[type_now] + 1);
+        if(type_now == 1){
+            newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), newsList));
+        }
+
+        else if(type_now == 2){
             newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), paperList));
         }
     }
@@ -72,12 +102,7 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        netWork = new NetWork("https://covid-dashboard.aminer.cn/api/dist/events.json");
-        context  = netWork.getStringResult();
-        if(context == null)
-            System.out.println("Connection Failed...");
-        else
-            loadNewsItem();
+        netWork = new NetWork();
     }
 
     @Nullable
@@ -88,7 +113,7 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
         newsRecyclerView = (XRecyclerView) view.findViewById(R.id.rv_main);
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         newsRecyclerView.addItemDecoration(new MyDecoration());
-        newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), wholeList));
+        //newsRecyclerView.setAdapter(new NewsItemXRecyclerViewAdapter(getContext(), wholeList));
         //XRecyclerView Settings
         newsRecyclerView.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
         View header = LayoutInflater.from(getContext()).inflate(R.layout.fragment_news_x_recycler_view, container, false);
@@ -99,23 +124,25 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        context  = netWork.getStringResult();
-                        if(context == null){
-                            System.out.println("Connection Failed...");
-                        }
-                        else{
-                            loadNewsItem();
-                            changeShow(type_now);
-                        }
-
+                        if(type_now == 1)
+                            newsList.clear();
+                        else if(type_now == 2)
+                            paperList.clear();
+                        refreshShow();
                         newsRecyclerView.refreshComplete();
                     }
-                },1000);
+                },500);
             }
 
             @Override
             public void onLoadMore() {
-
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadShow();
+                        newsRecyclerView.loadMoreComplete();
+                    }
+                },500);
             }
         });
         return view;

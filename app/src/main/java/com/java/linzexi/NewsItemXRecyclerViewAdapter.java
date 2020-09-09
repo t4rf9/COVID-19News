@@ -28,6 +28,12 @@ public class NewsItemXRecyclerViewAdapter extends RecyclerView.Adapter<NewsItemX
 
     public NewsItemXRecyclerViewAdapter(Context context, List<NewsItemDataModel> l){
         mContext = context;
+        newsList.clear();
+        newsList.addAll(l);
+    }
+
+    public void upDateList(List<NewsItemDataModel> l){
+        newsList.clear();
         newsList.addAll(l);
     }
 
