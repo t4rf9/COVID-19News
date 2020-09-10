@@ -17,7 +17,8 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AnimationFade">
-        <!-- PopupWindow左右弹出的效果 -->  <item name="android:windowEnterAnimation">@anim/in_animation</item>
+        <!-- PopupWindow左右弹出的效果 -->
+        <item name="android:windowEnterAnimation">@anim/in_animation</item>
         <item name="android:windowExitAnimation">@anim/out_animation</item>
     </style>
 

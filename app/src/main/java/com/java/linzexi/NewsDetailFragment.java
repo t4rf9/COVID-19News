@@ -2,8 +2,10 @@ package com.java.linzexi;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,17 +42,19 @@ public class NewsDetailFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param newsEntity the news entity to display.
+     * @param time The time of the news.
+     * @param source The source of the news.
+     * @param title The title of the news.
+     * @param content The content of the news.
      * @return A new instance of fragment NewsDetailFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static NewsDetailFragment newInstance(NewsEntity newsEntity) {
+    public static NewsDetailFragment newInstance(String time, String source, String title, String content) {
         NewsDetailFragment fragment = new NewsDetailFragment();
         Bundle args = new Bundle();
-        args.putString(TIME, newsEntity.getTime());
-        args.putString(SOURCE, newsEntity.getSource());
-        args.putString(TITLE, newsEntity.getTitle());
-        args.putString(CONTENT, newsEntity.getContent());
+        args.putString(TIME, time);
+        args.putString(SOURCE, source);
+        args.putString(TITLE, title);
+        args.putString(CONTENT, content);
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,15 +76,18 @@ public class NewsDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_news_detail, container, false);
         ((TextView) view.findViewById(R.id.textView_title)).setText(title);
-        ((TextView) view.findViewById(R.id.textView_content)).setText(content);
         ((TextView) view.findViewById(R.id.textView_source)).setText(source);
         ((TextView) view.findViewById(R.id.textView_time)).setText(time);
+
+        TextView textView_content = view.findViewById(R.id.textView_content);
+        textView_content.setText(content);
+        textView_content.setMovementMethod(ScrollingMovementMethod.getInstance());
+
         return view;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        requireActivity().findViewById(R.id.tabLayout).setVisibility(View.VISIBLE);
     }
 }

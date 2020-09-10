@@ -162,7 +162,7 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         newsRecyclerView.addItemDecoration(new MyDecoration());
 
-        newsRecyclerAdapter = new NewsItemXRecyclerViewAdapter(getActivity(), requireActivity().getSupportFragmentManager());
+        newsRecyclerAdapter = new NewsItemXRecyclerViewAdapter(getActivity());
         newsRecyclerView.setAdapter(newsRecyclerAdapter);
         newsRecyclerView.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
 

@@ -2,6 +2,7 @@ package com.java.linzexi;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.java.linzexi.JSONHandler.NewsEntityLoader;
@@ -21,16 +21,13 @@ import java.util.List;
 
 public class NewsItemXRecyclerViewAdapter extends RecyclerView.Adapter<NewsItemXRecyclerViewAdapter.XRecyclerViewHolder> {
 
-    private Activity activity;
-    private FragmentManager fragmentManager;
-    private String newsContext = null;
+    private Activity mActivity;
     private List<NewsEntity> browsingHistory = new ArrayList<>();
 
     private List<NewsEntity> newsEntityList = new ArrayList<>();
 
-    public NewsItemXRecyclerViewAdapter(Activity activity, FragmentManager fragmentManager) {
-        this.activity = activity;
-        this.fragmentManager = fragmentManager;
+    public NewsItemXRecyclerViewAdapter(Activity activity) {
+        this.mActivity = activity;
     }
 
     public void resetList(List<NewsEntity> l) {
@@ -45,7 +42,7 @@ public class NewsItemXRecyclerViewAdapter extends RecyclerView.Adapter<NewsItemX
     @NonNull
     @Override
     public XRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new XRecyclerViewHolder(LayoutInflater.from(activity).inflate(R.layout.layout_recycler, parent, false));
+        return new XRecyclerViewHolder(LayoutInflater.from(mActivity).inflate(R.layout.layout_recycler, parent, false));
     }
 
 
@@ -60,15 +57,17 @@ public class NewsItemXRecyclerViewAdapter extends RecyclerView.Adapter<NewsItemX
         }
         final boolean read = newsEntity.getRead();
         if (read) {
-            holder.textView.setTextColor(holder.textView.getResources().getColor(R.color.readNews));
+            holder.textView.setTextColor(mActivity.getColor(R.color.readNews));
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final AppDatabase db = ((COVID19NewsApp) activity.getApplication()).getDatabase();
-                activity.findViewById(R.id.tabLayout).setVisibility(View.GONE);
 
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                holder.textView.setTextColor(mActivity.getColor(R.color.readNews));
+
+                final AppDatabase db = ((COVID19NewsApp) mActivity.getApplication()).getDatabase();
+
+                NewsEntity newsEntity_display;
                 if (!read) {
                     final NewsEntity newsEntity_fresh = NewsEntityLoader.getNewsEntity(newsEntity.get_id());
                     Thread thread = new Thread(new Runnable() {
@@ -77,12 +76,18 @@ public class NewsItemXRecyclerViewAdapter extends RecyclerView.Adapter<NewsItemX
                             db.newsDao().updateNews(newsEntity_fresh);
                         }
                     });
-                    fragmentTransaction.replace(R.id.host_fragment_container, NewsDetailFragment.newInstance(newsEntity_fresh));
+                    thread.start();
+                    newsEntity_display = newsEntity_fresh;
                 } else {
-                    fragmentTransaction.replace(R.id.host_fragment_container, NewsDetailFragment.newInstance(newsEntity));
+                    newsEntity_display = newsEntity;
                 }
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                Intent intent = new Intent(mActivity, NewsDetailActivity.class);
+                intent.putExtra("time", newsEntity_display.getTime());
+                intent.putExtra("source", newsEntity_display.getSource());
+                intent.putExtra("title", newsEntity_display.getTitle());
+                intent.putExtra("content", newsEntity_display.getContent());
+                mActivity.startActivity(intent);
+
             }
         });
     }
