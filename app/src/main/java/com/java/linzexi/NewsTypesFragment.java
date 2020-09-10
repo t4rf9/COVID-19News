@@ -1,10 +1,13 @@
 package com.java.linzexi;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,7 +16,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.tabs.TabLayout;
+import com.java.linzexi.database.NewsDao;
+import com.java.linzexi.database.NewsEntity;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -45,11 +51,38 @@ public class NewsTypesFragment extends Fragment {
 
     }
 
+    public void search(String s){
+        //List<NewsEntity> li = searchNewsTitle(s);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news_types, container, false);
+        View view =  inflater.inflate(R.layout.fragment_news_types, container, false);
+        final SearchView searchView = view.findViewById(R.id.search_news);
+        searchView.setSubmitButtonEnabled(true);
+        //searchView.onActionViewExpanded();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                search(s);
+                if(searchView != null){
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if(imm != null){
+                        imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
+                        searchView.clearFocus();
+                    }
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+        return view;
     }
 
     @Override
