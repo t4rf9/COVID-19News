@@ -25,6 +25,9 @@ public interface NewsDao {
     @Query("select * from NewsEntity where _id = :id")
     NewsEntity loadNews(final String id);
 
-    @Query("select * from NewsEntity where title like '%'||:query||'%'")
+    @Query("select * from NewsEntity where (type = 'paper' or type = 'news') and title like '%'||:query||'%' order by time desc")
     List<NewsEntity> searchNewsTitle(final String query);
+
+    @Query("select * from NewsEntity where (type = 'paper' or type = 'news') and title like '%'||:query||'%' order by time desc limit :size")
+    List<NewsEntity> searchNewsTitle(final String query, final int size);
 }
