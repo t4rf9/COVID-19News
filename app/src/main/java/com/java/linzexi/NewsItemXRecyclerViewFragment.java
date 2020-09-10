@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import org.json.JSONArray;
@@ -122,6 +123,12 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
         newsRecyclerView.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
         View header = LayoutInflater.from(getContext()).inflate(R.layout.fragment_news_x_recycler_view, container, false);
         newsRecyclerView.addHeaderView(header);
+
+        newsRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        newsRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        newsRecyclerView.setArrowImageView(R.drawable.ic_pulltorefresh_arrow);
+
+
         newsRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
