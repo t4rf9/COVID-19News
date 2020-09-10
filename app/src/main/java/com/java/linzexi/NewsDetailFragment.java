@@ -1,19 +1,13 @@
 package com.java.linzexi;
 
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.java.linzexi.database.NewsEntity;
-
-import java.util.Objects;
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.

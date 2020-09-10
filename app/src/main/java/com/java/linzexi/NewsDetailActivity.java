@@ -2,19 +2,14 @@ package com.java.linzexi;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 
 public class NewsDetailActivity extends AppCompatActivity {
 
@@ -26,6 +21,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
@@ -58,7 +54,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         if (id == R.id.action_share) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.fragment_news_detail, ShareFragment.newInstance());
+            fragmentTransaction.replace(R.id.fragment_news_detail, ShareFragment.newInstance());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
             return true;
