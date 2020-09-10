@@ -42,8 +42,4 @@ public class COVID19NewsApp extends Application {
     public AppDatabase getDatabase() {
         return AppDatabase.getInstance(this, mAppExecutors);
     }
-
-    /*public DataRepository getRepository() {
-        return DataRepository.getInstance(getDatabase());
-    }*/
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +23,8 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Objects;
 
 public class NewsItemXRecyclerViewFragment extends Fragment {
     public XRecyclerView newsRecyclerView;
@@ -59,7 +62,8 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
                             String _id = object.getString("_id");
                             String type = object.getString("type");
                             String title = object.getString("title");
-                            String time = object.getString("time");
+                            String time = object.getString("time").replaceAll("-", "/");
+                            System.err.println(time);
                             String source = object.getString("source");
                             String content = object.getString("content");
 
@@ -78,7 +82,7 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
         thread.start();
         try {
             thread.join();
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace(System.err);
         }
     }
@@ -158,7 +162,7 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         newsRecyclerView.addItemDecoration(new MyDecoration());
 
-        newsRecyclerAdapter = new NewsItemXRecyclerViewAdapter(getContext());
+        newsRecyclerAdapter = new NewsItemXRecyclerViewAdapter(getActivity(), requireActivity().getSupportFragmentManager());
         newsRecyclerView.setAdapter(newsRecyclerAdapter);
         newsRecyclerView.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
 
@@ -168,7 +172,6 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
         newsRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         newsRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
         newsRecyclerView.setArrowImageView(R.drawable.ic_pulltorefresh_arrow);
-
 
         newsRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override

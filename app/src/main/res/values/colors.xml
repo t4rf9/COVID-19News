@@ -8,4 +8,5 @@
     <color name="colorTypeUnselected">#80ff0000</color>
     <color name="colorGrayDark">#808080</color>
     <color name="mainTabSelected">#ff0080</color>
+    <color name="readNews">#808080</color>
 </resources>
