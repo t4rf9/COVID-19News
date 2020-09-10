@@ -48,7 +48,7 @@ public class EpiDataFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(EpiDataViewModel.class);
         barCharts = new BarCharts();
-        System.out.println("CREATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+        //System.out.println("CREATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
     }
 
     @Override

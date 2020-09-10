@@ -25,8 +25,6 @@ import java.util.List;
 
 public class EpiDataViewModel extends ViewModel {
     List<String> keyList = new ArrayList<>();
-    List<String> keyListChinese = new ArrayList<>();
-    List<String> keyListInternational = new ArrayList<>();
     List<EpiDataModel> epiDataModelChinese = new ArrayList<>();
     List<EpiDataModel> epiDataModelInternational = new ArrayList<>();
 
