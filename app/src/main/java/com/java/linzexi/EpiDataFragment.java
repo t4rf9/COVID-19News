@@ -32,7 +32,7 @@ public class EpiDataFragment extends Fragment {
     private EpiDataViewModel mViewModel;
 
     private BarChart confirmedBarChart;
-    private BarChart suspectedBatChart;
+    //private BarChart suspectedBatChart;
     private BarChart curedBarChart;
     private BarChart deadBarChart;
     private BarCharts barCharts;
@@ -48,6 +48,7 @@ public class EpiDataFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(EpiDataViewModel.class);
         barCharts = new BarCharts();
+        //System.out.println("CREATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
     }
 
     @Override
@@ -63,13 +64,13 @@ public class EpiDataFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 if(tab.getPosition() == 0){
                     barCharts.showBarChart(confirmedBarChart, mViewModel.findData(0, 0, confirmedBarChart), true);
-                    barCharts.showBarChart(suspectedBatChart, mViewModel.findData(0, 1, suspectedBatChart), true);
+                    //barCharts.showBarChart(suspectedBatChart, mViewModel.findData(0, 1, suspectedBatChart), true);
                     barCharts.showBarChart(curedBarChart, mViewModel.findData(0, 2, curedBarChart), true);
                     barCharts.showBarChart(deadBarChart, mViewModel.findData(0, 3, deadBarChart), true);
                 }
                 else{
                     barCharts.showBarChart(confirmedBarChart, mViewModel.findData(1, 0, confirmedBarChart), true);
-                    barCharts.showBarChart(suspectedBatChart, mViewModel.findData(1, 1, suspectedBatChart), true);
+                    //barCharts.showBarChart(suspectedBatChart, mViewModel.findData(1, 1, suspectedBatChart), true);
                     barCharts.showBarChart(curedBarChart, mViewModel.findData(1, 2, curedBarChart), true);
                     barCharts.showBarChart(deadBarChart, mViewModel.findData(1, 3, deadBarChart), true);
                 }
@@ -86,11 +87,11 @@ public class EpiDataFragment extends Fragment {
             }
         });
         confirmedBarChart = (BarChart) view.findViewById(R.id.confirmed_chart);
-        suspectedBatChart = (BarChart) view.findViewById(R.id.suspected_chart);
+        //suspectedBatChart = (BarChart) view.findViewById(R.id.suspected_chart);
         curedBarChart = (BarChart) view.findViewById(R.id.cured_chart);
         deadBarChart = (BarChart) view.findViewById(R.id.dead_chart);
         barCharts.showBarChart(confirmedBarChart, mViewModel.findData(0, 0, confirmedBarChart), true);
-        barCharts.showBarChart(suspectedBatChart, mViewModel.findData(0, 1, suspectedBatChart), true);
+        //barCharts.showBarChart(suspectedBatChart, mViewModel.findData(0, 1, suspectedBatChart), true);
         barCharts.showBarChart(curedBarChart, mViewModel.findData(0, 2, curedBarChart), true);
         barCharts.showBarChart(deadBarChart, mViewModel.findData(0, 3, deadBarChart), true);
 

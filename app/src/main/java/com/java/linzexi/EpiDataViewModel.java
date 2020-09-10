@@ -25,8 +25,6 @@ import java.util.List;
 
 public class EpiDataViewModel extends ViewModel {
     List<String> keyList = new ArrayList<>();
-    List<String> keyListChinese = new ArrayList<>();
-    List<String> keyListInternational = new ArrayList<>();
     List<EpiDataModel> epiDataModelChinese = new ArrayList<>();
     List<EpiDataModel> epiDataModelInternational = new ArrayList<>();
 
@@ -135,7 +133,10 @@ public class EpiDataViewModel extends ViewModel {
         if(place == 0){
             length = epiDataModelInternational.size();
             for(int i = 0; i < epiDataModelInternational.size(); i ++){
-                label_name.add(epiDataModelInternational.get(i).place);
+                if(epiDataModelInternational.get(i).place.equals("United States of America"))
+                    label_name.add("USA");
+                else
+                    label_name.add(epiDataModelInternational.get(i).place);
                 values.add(new BarEntry(count ++, epiDataModelInternational.get(i).getLastData().getData(type)));
             }
         }
@@ -166,8 +167,23 @@ public class EpiDataViewModel extends ViewModel {
         YAxis yAxis_left = bar.getAxisLeft();
         yAxis_left.setAxisMinimum(0f);  // 设置y轴的最小值
         yAxis_left.setValueFormatter(new LargeValueFormatter());
+        BarDataSet barDataSet = null;
+        if(place == 0){
+            if(type == 0)
+                barDataSet = new BarDataSet(values, "各国确诊人数");
+            else if(type == 2)
+                barDataSet = new BarDataSet(values, "各国治愈人数");
+            else if(type == 3)
+                barDataSet = new BarDataSet(values, "各国死亡人数");
+        }else{
+            if(type == 0)
+                barDataSet = new BarDataSet(values, "各地确诊人数");
+            else if(type == 2)
+                barDataSet = new BarDataSet(values, "各地治愈人数");
+            else if(type == 3)
+                barDataSet = new BarDataSet(values, "各地死亡人数");
+        }
 
-        BarDataSet barDataSet = new BarDataSet(values, "各国死亡人数");
 //        barDataSet.setColor(Color.parseColor(color[0]));
         barDataSet.setDrawValues(true);
         sets.add(barDataSet);
