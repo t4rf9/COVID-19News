@@ -25,10 +25,6 @@ public interface NewsDao {
     @Query("select * from NewsEntity where _id = :id")
     NewsEntity loadNews(final String id);
 
-    /*@Query("select * from NewsEntity where type = :type order by time desc")
-    DataSource.Factory<Integer, NewsEntity> newsByTime(final String type);*/
-
-    /*@Query("SELECT NewsEntity.* FROM NewsEntity JOIN NewsFts ON (NewsEntity._id = productsFts.rowid) "
-            + "WHERE NewsFts MATCH :query")
-    LiveData<List<NewsEntity>> searchAllNews(String query);*/
+    @Query("select * from NewsEntity where title like '%'||:query||'%'")
+    List<NewsEntity> searchNewsTitle(final String query);
 }
