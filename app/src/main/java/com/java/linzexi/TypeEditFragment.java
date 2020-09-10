@@ -111,24 +111,6 @@ public class TypeEditFragment extends Fragment {
             }
         });
 
-        final Button button_all = view.findViewById(R.id.button_news_type_all);
-        button_all.setAnimation(shake);
-        button_all.setBackgroundColor(requireActivity().getColor(all ? R.color.colorTypeSelected : R.color.colorTypeUnselected));
-        button_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (all) {
-                    view.setBackgroundColor(requireActivity().getColor(R.color.colorTypeUnselected));
-                    button_all.setAnimation(still);
-                    all = false;
-                } else {
-                    view.setBackgroundColor(requireActivity().getColor(R.color.colorTypeSelected));
-                    button_all.setAnimation(shake);
-                    all = true;
-                }
-            }
-        });
-
         final Button button_news = view.findViewById(R.id.button_news_type_news);
         button_news.setAnimation(shake);
         button_news.setBackgroundColor(requireActivity().getColor(news ? R.color.colorTypeSelected : R.color.colorTypeUnselected));

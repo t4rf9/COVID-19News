@@ -18,12 +18,12 @@ public class EpiDataXRecyclerViewAdapter extends RecyclerView.Adapter<EpiDataXRe
     private Context mContext;
     private EpiDataFragment fragment;
 
-    public EpiDataXRecyclerViewAdapter(Context context, EpiDataFragment _fragment){
+    public EpiDataXRecyclerViewAdapter(Context context, EpiDataFragment _fragment) {
         mContext = context;
         fragment = _fragment;
     }
 
-    public void upDateList(List<EpiDataModel> l){
+    public void upDateList(List<EpiDataModel> l) {
         epiDataModelShow.clear();
         epiDataModelShow.addAll(l);
     }
@@ -31,7 +31,7 @@ public class EpiDataXRecyclerViewAdapter extends RecyclerView.Adapter<EpiDataXRe
     @NonNull
     @Override
     public XRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new EpiDataXRecyclerViewAdapter.XRecyclerViewHolder(LayoutInflater.from(mContext).inflate(R.layout.layout_epi_data_recycler, parent,false));
+        return new EpiDataXRecyclerViewAdapter.XRecyclerViewHolder(LayoutInflater.from(mContext).inflate(R.layout.layout_epi_data_recycler, parent, false));
     }
 
     @Override

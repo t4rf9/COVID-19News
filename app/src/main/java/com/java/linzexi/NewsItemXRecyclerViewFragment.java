@@ -147,7 +147,6 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mExecutors = ((COVID19NewsApp) requireActivity().getApplication()).getExecutors();
         db = AppDatabase.getInstance(getActivity(), mExecutors);
-        //mViewModel = new ViewModelProvider(this).get(NewsListViewModel.class);
     }
 
     @Nullable

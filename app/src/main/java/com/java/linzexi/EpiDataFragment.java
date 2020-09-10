@@ -26,7 +26,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 public class EpiDataFragment extends Fragment {
     public XRecyclerView dataRecyclerView;
-//    private EpiDataXRecyclerViewAdapter dataRecyclerAdapter;
+    //    private EpiDataXRecyclerViewAdapter dataRecyclerAdapter;
     private EpiDataViewModel mViewModel;
 //    private PopupWindow popupWindow = null;
 //    TextView pop_text = null;
