@@ -14,13 +14,14 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link NewsTypesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class NewsTypesFragment extends Fragment {
-    private boolean all = true;
     private boolean news = true;
     private boolean paper = true;
 
@@ -55,7 +56,6 @@ public class NewsTypesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final TabLayout tabLayout = view.findViewById(R.id.tabLayout_news_types);
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_all));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_news));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_paper));
 
@@ -65,14 +65,12 @@ public class NewsTypesFragment extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                int type = tab.getPosition();
-                String text = tab.getText().toString();
-                if (text.equals(getString(R.string.tab_news_type_all))) {
+                int type;
+                String text = Objects.requireNonNull(tab.getText()).toString();
+                if (text.equals(getString(R.string.tab_news_type_news))) {
                     type = 0;
-                } else if (text.equals(getString(R.string.tab_news_type_news))) {
-                    type = 1;
                 } else {
-                    type = 2;
+                    type = 1;
                 }
                 newsFragment.changeShow(type);
             }
@@ -96,7 +94,7 @@ public class NewsTypesFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 Fragment fragment = fragmentManager.findFragmentById(R.id.constraintView_news_types);
                 if (fragment == null || fragment.isRemoving()) {
-                    fragmentTransaction.replace(R.id.constraintView_news_types, TypeEditFragment.newInstance(all, news, paper));
+                    fragmentTransaction.replace(R.id.constraintView_news_types, TypeEditFragment.newInstance(news, paper));
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 } else {
@@ -104,10 +102,6 @@ public class NewsTypesFragment extends Fragment {
                 }
             }
         });
-    }
-
-    public void setAll(final boolean b) {
-        all = b;
     }
 
     public void setNews(final boolean b) {

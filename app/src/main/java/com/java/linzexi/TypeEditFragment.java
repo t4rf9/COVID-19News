@@ -1,6 +1,5 @@
 package com.java.linzexi;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,15 +24,12 @@ import java.util.Objects;
  */
 public class TypeEditFragment extends Fragment {
 
-    private static final String ALL = "ALL";
     private static final String NEWS = "NEWS";
     private static final String PAPER = "PAPER";
 
-    private boolean all = true;
     private boolean news = true;
     private boolean paper = true;
 
-    private boolean all_origin = true;
     private boolean news_origin = true;
     private boolean paper_origin = true;
 
@@ -45,15 +41,13 @@ public class TypeEditFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param all   whether tab all is enabled.
      * @param news  whether tab news is enabled.
      * @param paper whether tab paper is enabled.
      * @return A new instance of fragment TypeSelectFragment.
      */
-    public static TypeEditFragment newInstance(boolean all, boolean news, boolean paper) {
+    public static TypeEditFragment newInstance(boolean news, boolean paper) {
         TypeEditFragment fragment = new TypeEditFragment();
         Bundle args = new Bundle();
-        args.putBoolean(ALL, all);
         args.putBoolean(NEWS, news);
         args.putBoolean(PAPER, paper);
         fragment.setArguments(args);
@@ -64,11 +58,9 @@ public class TypeEditFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            all = getArguments().getBoolean(ALL);
             news = getArguments().getBoolean(NEWS);
             paper = getArguments().getBoolean(PAPER);
 
-            all_origin = all;
             news_origin = news;
             paper_origin = paper;
         }
@@ -95,44 +87,22 @@ public class TypeEditFragment extends Fragment {
                 Activity mainActivity = requireActivity();
                 TabLayout tabLayout = mainActivity.findViewById(R.id.tabLayout_news_types);
                 NewsTypesFragment newsTypesFragment = (NewsTypesFragment) fragmentManager.findFragmentById(R.id.host_fragment_container);
-                if (all != all_origin) {
-                    newsTypesFragment.setAll(all);
-                    if (all) {
-                        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_all), 0);
-                    } else {
-                        tabLayout.removeTabAt(0);
-                    }
-                }
+
                 if (news != news_origin) {
                     newsTypesFragment.setNews(news);
                     if (news) {
-                        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_news), all ? 1 : 0);
+                        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_news), 0);
                     } else {
-                        tabLayout.removeTabAt(all ? 1 : 0);
+                        tabLayout.removeTabAt(0);
                     }
                 }
                 if (paper != paper_origin) {
                     newsTypesFragment.setPaper(paper);
                     if (paper) {
-                        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_paper), (all ? 1 : 0) + (news ? 1 : 0));
+                        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_news_type_paper), (news ? 1 : 0));
                     } else {
-                        tabLayout.removeTabAt((all ? 1 : 0) + (news ? 1 : 0));
+                        tabLayout.removeTabAt(news ? 1 : 0);
                     }
-                }
-            }
-        });
-
-        Button button_all = view.findViewById(R.id.button_news_type_all);
-        button_all.setBackgroundColor(requireActivity().getColor(all ? R.color.colorTypeSelected : R.color.colorTypeUnselected));
-        button_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (all) {
-                    view.setBackgroundColor(requireActivity().getColor(R.color.colorTypeUnselected));
-                    all = false;
-                } else {
-                    view.setBackgroundColor(requireActivity().getColor(R.color.colorTypeSelected));
-                    all = true;
                 }
             }
         });

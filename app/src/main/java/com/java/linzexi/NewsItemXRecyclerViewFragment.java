@@ -13,100 +13,140 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.java.linzexi.JSONHandler.RemoteJSONFetcher;
+import com.java.linzexi.database.AppDatabase;
+import com.java.linzexi.database.NewsEntity;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class NewsItemXRecyclerViewFragment extends Fragment {
     public XRecyclerView newsRecyclerView;
-    private NetWork netWork = null;
-    private String context = null;
-    private int type_now = 0;
-    //List<NewsItemDataModel> eventList = new ArrayList<>();
-    List<NewsItemDataModel> newsList = new ArrayList<>();
-    List<NewsItemDataModel> paperList = new ArrayList<>();
-    private NewsItemXRecyclerViewAdapter newsRecyclerAdapter;
-    int []pages = new int[3];
+    private AppExecutors mExecutors;
+    private AppDatabase db;
 
-    private void loadNewsItem(int type, int page){
-        //type0:no use  1 for news  2 for paper
-        if(type == 1)
-            netWork.changeURL("https://covid-dashboard.aminer.cn/api/events/list?type=news&page=" + page);
-        else if(type == 2){
-            netWork.changeURL("https://covid-dashboard.aminer.cn/api/events/list?type=paper&page=" + page);
-        }
-        else
-            return ;
-        context = netWork.getStringResult();
-        try{
-            JSONObject obj = new JSONObject(context);
-            JSONArray arr = obj.getJSONArray("data");
-            for(int i = 0; i < arr.length(); i ++){
-                JSONObject object = arr.getJSONObject(i);
-                String id = object.getString("_id");
-                String title = object.getString("title");
-                String time = object.getString("date");
-                if(type == 1){
-                    newsList.add(new NewsItemDataModel(id, "news", title, time));
-                }
-                if(type == 2){
-                    paperList.add(new NewsItemDataModel(id, "paper", title, time));
+    private String context = null;
+    private int type_id_curr = 0;
+
+    private NewsItemXRecyclerViewAdapter newsRecyclerAdapter;
+
+    private int[] pages = new int[2];
+    private int page_size = 20;
+
+    public void loadNewsListFromInternet(final int type_id) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int page = 0;
+                while (true) {
+                    page++;
+                    RemoteJSONFetcher remoteJSONFetcher = new RemoteJSONFetcher("https://covid-dashboard.aminer.cn/api/events/list?type="
+                            + (type_id == 0 ? "news" : "paper") + "&page=" + page + "&size=" + page_size);
+
+                    String jsonFileString = remoteJSONFetcher.getJSONFileString();
+                    try {
+                        JSONObject obj = new JSONObject(jsonFileString);
+                        JSONArray jsonArray = obj.getJSONArray("data");
+                        if (jsonArray.length() == 0) {
+                            return;
+                        }
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+
+                            String _id = object.getString("_id");
+                            String type = object.getString("type");
+                            String title = object.getString("title");
+                            String time = object.getString("time");
+                            String source = object.getString("source");
+                            String content = object.getString("content");
+
+                            if (db.newsDao().loadNews(_id) == null) {
+                                db.newsDao().insertNews(new NewsEntity(false, _id, type, time, source, title, content));
+                            } else {
+                                return;
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace(System.err);
+                    }
                 }
             }
-            pages[type] += 1;
+        });
+        thread.start();
+        try {
+            thread.join();
+        }catch (InterruptedException e){
+            e.printStackTrace(System.err);
         }
-        catch (JSONException e){
+    }
+
+    public void changeShow(int type_id) {
+        type_id_curr = type_id;
+        if (pages[type_id_curr] == 0) {
+            refreshShow();
+        } else {
+            final String type = type_id_curr == 0 ? "news" : "paper";
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    newsRecyclerAdapter.resetList(db.newsDao().loadNews(type, 0, pages[type_id_curr] * page_size));
+                }
+            });
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            newsRecyclerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void refreshShow() {
+        final String type = type_id_curr == 0 ? "news" : "paper";
+        pages[type_id_curr] = 1;
+        loadNewsListFromInternet(type_id_curr);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                newsRecyclerAdapter.resetList(db.newsDao().loadNews(type, 0, page_size));
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-    }
-
-    public void changeShow(int type){
-        type_now = type;
-        if(pages[type] == 0){
-            loadNewsItem(type, 1);
-        }
-        if(type == 1) {
-            newsRecyclerAdapter.upDateList(newsList);
-        }
-        else if(type == 2){
-            newsRecyclerAdapter.upDateList(paperList);
-        }
         newsRecyclerAdapter.notifyDataSetChanged();
     }
 
-    public void refreshShow(){
-        pages[type_now] = 0;
-        loadNewsItem(type_now, 1);
-        if(type_now == 1){
-            newsRecyclerAdapter.upDateList(newsList);
+    public void loadShow() {
+        final String type = type_id_curr == 0 ? "news" : "paper";
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                newsRecyclerAdapter.appendList(db.newsDao().loadNews(type, pages[type_id_curr] * page_size, page_size));
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        else if(type_now == 2){
-            newsRecyclerAdapter.upDateList(paperList);
-        }
-        newsRecyclerAdapter.notifyDataSetChanged();
-    }
-
-    public void loadShow(){
-        loadNewsItem(type_now, pages[type_now] + 1);
-        if(type_now == 1){
-            newsRecyclerAdapter.upDateList(newsList);
-        }
-        else if(type_now == 2){
-            newsRecyclerAdapter.upDateList(paperList);
-        }
+        pages[type_id_curr]++;
         newsRecyclerAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        netWork = new NetWork();
+        mExecutors = ((COVID19NewsApp) requireActivity().getApplication()).getExecutors();
+        db = AppDatabase.getInstance(getActivity(), mExecutors);
+        //mViewModel = new ViewModelProvider(this).get(NewsListViewModel.class);
     }
 
     @Nullable
@@ -117,9 +157,11 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
         newsRecyclerView = (XRecyclerView) view.findViewById(R.id.rv_main);
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         newsRecyclerView.addItemDecoration(new MyDecoration());
-        newsRecyclerAdapter = new NewsItemXRecyclerViewAdapter(getContext(), newsList);
+
+        newsRecyclerAdapter = new NewsItemXRecyclerViewAdapter(getContext());
         newsRecyclerView.setAdapter(newsRecyclerAdapter);
         newsRecyclerView.getDefaultRefreshHeaderView().setRefreshTimeVisible(true);
+
         View header = LayoutInflater.from(getContext()).inflate(R.layout.fragment_news_x_recycler_view, container, false);
         newsRecyclerView.addHeaderView(header);
         newsRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
@@ -128,14 +170,11 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(type_now == 1)
-                            newsList.clear();
-                        else if(type_now == 2)
-                            paperList.clear();
+
                         refreshShow();
                         newsRecyclerView.refreshComplete();
                     }
-                },500);
+                }, 500);
             }
 
             @Override
@@ -146,9 +185,10 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
                         loadShow();
                         newsRecyclerView.loadMoreComplete();
                     }
-                },500);
+                }, 500);
             }
         });
+        refreshShow();
         return view;
     }
 
@@ -156,7 +196,7 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
         @Override
         public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
             super.getItemOffsets(outRect, view, parent, state);
-            outRect.set(0,0,0,getResources().getDimensionPixelOffset(R.dimen.dividerHeright));
+            outRect.set(0, 0, 0, getResources().getDimensionPixelOffset(R.dimen.dividerHeright));
         }
     }
 }

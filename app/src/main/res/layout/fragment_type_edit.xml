@@ -30,18 +30,6 @@
         app:layout_constraintTop_toBottomOf="@+id/button_edit_completed">
 
         <Button
-            android:id="@+id/button_news_type_all"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:text="@string/tab_news_type_all"
-            android:textSize="18sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/button_news_type_news"
-            app:layout_constraintEnd_toStartOf="@+id/button_news_type_news"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
             android:id="@+id/button_news_type_news"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -49,7 +37,7 @@
             android:text="@string/tab_news_type_news"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/button_news_type_paper"
-            app:layout_constraintStart_toEndOf="@+id/button_news_type_all"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
