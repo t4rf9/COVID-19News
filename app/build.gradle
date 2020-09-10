@@ -57,3 +57,9 @@ dependencies {
     // Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
 }
+    //img
+    implementation  'com.github.bumptech.glide:glide:4.5.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
+    //mp-android chart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+}
