@@ -3,17 +3,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EpiDataFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".EpiDataFragment"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-<!--    <com.jcodecraeer.xrecyclerview.XRecyclerView-->
-<!--        android:id="@+id/rv_epi_data"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content" />-->
+        <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout_epi_types"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        </com.google.android.material.tabs.TabLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
 
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/confirmed_chart"
+        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout_epi_types"
+        />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/suspected_chart"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/confirmed_chart"
+        />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/cured_chart"
+        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/suspected_chart"
+        />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/dead_chart"
+        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/cured_chart"
+        />
     </LinearLayout>
+    </ScrollView>
+    </LinearLayout>>
 
 </FrameLayout>
