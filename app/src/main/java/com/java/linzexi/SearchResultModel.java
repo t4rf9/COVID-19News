@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class SearchResultModel {
@@ -12,7 +13,7 @@ public class SearchResultModel {
     String url;
     String wikiInfo;
     String img;
-    String properties;
+    String properties = "";
     List<SearchResultRelationModel> srl = new ArrayList<>();
     public SearchResultModel(String _name, String _url, String enwiki, String baidu, String zhwiki, String _properties, JSONArray arr, String _img){
         name = _name;
@@ -27,9 +28,18 @@ public class SearchResultModel {
         else if(!zhwiki.equals("")){
             wikiInfo = zhwiki;
         }
-        properties = _properties;
+
         img = _img;
         try{
+            if (_properties != null) {
+                JSONObject pro = new JSONObject(_properties);
+                Iterator<String> keys = pro.keys();
+                while (keys.hasNext()) {
+                    String key = keys.next();
+                    properties += key + ":" + pro.getString(key) + "\n";
+                }
+            }
+
             for(int i = 0; i < arr.length(); i ++){
                 JSONObject ob = arr.getJSONObject(i);
                 String relationOB = ob.getString("relation");
