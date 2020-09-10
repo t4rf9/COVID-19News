@@ -26,7 +26,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 public class EpiDataFragment extends Fragment {
     public XRecyclerView dataRecyclerView;
-    private EpiDataXRecyclerViewAdapter dataRecyclerAdapter;
+//    private EpiDataXRecyclerViewAdapter dataRecyclerAdapter;
     private EpiDataViewModel mViewModel;
 //    private PopupWindow popupWindow = null;
 //    TextView pop_text = null;
@@ -36,26 +36,33 @@ public class EpiDataFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mViewModel = ViewModelProviders.of(this).get(EpiDataViewModel.class);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.epi_data_fragment, container, false);
-        dataRecyclerView = (XRecyclerView) view.findViewById(R.id.rv_epi_data);
-        dataRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        dataRecyclerView.addItemDecoration(new MyDecoration());
-        dataRecyclerAdapter = new EpiDataXRecyclerViewAdapter(getContext(), this);
-        dataRecyclerView.setAdapter(dataRecyclerAdapter);
 
-        dataRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
-            @Override
-            public void onRefresh() {
-                dataRecyclerView.refreshComplete();
-            }
-
-            @Override
-            public void onLoadMore() {
-                dataRecyclerView.loadMoreComplete();
-            }
-        });
+//        dataRecyclerView = (XRecyclerView) view.findViewById(R.id.rv_epi_data);
+//        dataRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        dataRecyclerView.addItemDecoration(new MyDecoration());
+//        dataRecyclerAdapter = new EpiDataXRecyclerViewAdapter(getContext(), this);
+//        dataRecyclerView.setAdapter(dataRecyclerAdapter);
+//
+//        dataRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+//            @Override
+//            public void onRefresh() {
+//                dataRecyclerView.refreshComplete();
+//            }
+//
+//            @Override
+//            public void onLoadMore() {
+//                dataRecyclerView.loadMoreComplete();
+//            }
+//        });
 
 //        final View popupWindow_view = getLayoutInflater().inflate(R.layout.pop_below, null, false);
 //        pop_text = popupWindow_view.findViewById(R.id.pop_window);
@@ -76,9 +83,9 @@ public class EpiDataFragment extends Fragment {
 //        });
 //        popupWindow.setBackgroundDrawable(new ColorDrawable(0));
 //        popupWindow.dismiss();
-        mViewModel = ViewModelProviders.of(this).get(EpiDataViewModel.class);
-        mViewModel.updateData(0, dataRecyclerAdapter);
-        dataRecyclerAdapter.notifyDataSetChanged();
+
+//        mViewModel.updateData(0, dataRecyclerAdapter);
+//        dataRecyclerAdapter.notifyDataSetChanged();
         return view;
     }
 
@@ -102,12 +109,12 @@ public class EpiDataFragment extends Fragment {
 //
 //    }
 
-    class MyDecoration extends RecyclerView.ItemDecoration {
-        @Override
-        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-            super.getItemOffsets(outRect, view, parent, state);
-            outRect.set(0,0,0, 15);
-        }
-    }
+//    class MyDecoration extends RecyclerView.ItemDecoration {
+//        @Override
+//        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+//            super.getItemOffsets(outRect, view, parent, state);
+//            outRect.set(0,0,0, 15);
+//        }
+//    }
 
 }
