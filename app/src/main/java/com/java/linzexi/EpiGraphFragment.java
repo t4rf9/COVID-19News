@@ -34,6 +34,7 @@ public class EpiGraphFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.epi_graph_fragment, container, false);
         searchView = view.findViewById(R.id.search_bar);
+        searchView.setSubmitButtonEnabled(true);
         return view;
     }
 
