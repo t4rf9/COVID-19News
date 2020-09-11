@@ -1,6 +1,7 @@
 package com.java.linzexi;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,16 @@ public class ScholarsViewAdapter extends BaseAdapter {
             textView.setText(list.get(i).name);
         ImageView imageView = view.findViewById(R.id.photo);
         if(list.get(i).avatar != null)
-            Glide.with(viewGroup.getContext()).load(list.get(i).avatar).apply(new RequestOptions().override(185, 300)).into(imageView);
+            if(!list.get(i).is_passedaway)
+                Glide.with(viewGroup.getContext()).load(list.get(i).avatar).apply(new RequestOptions().override(185, 300)).into(imageView);
+            else{
+                GlideApp.with(viewGroup.getContext())
+                        .load(list.get(i).avatar)
+                        .transform(new BlackWhiteTransformation())
+                        .apply(new RequestOptions().override(185, 300))
+                        .into(imageView);
+
+            }
         textView = view.findViewById(R.id.posi);
         textView.setText(list.get(i).position);
         return view;

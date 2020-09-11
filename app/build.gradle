@@ -59,8 +59,10 @@ dependencies {
 }
 dependencies {
     //img
-    implementation  'com.github.bumptech.glide:glide:4.5.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
     //mp-android chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
 }
