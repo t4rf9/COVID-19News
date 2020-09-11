@@ -21,7 +21,7 @@ if __name__ == "__main__":
     vectorizer = TfidfVectorizer(tokenizer=jieba_cut, use_idf=True)
     X = vectorizer.fit_transform([event["title"] for event in event_list])
 
-    n_clusters = 5
+    n_clusters = 2
     model_kmeans = KMeans(n_clusters=n_clusters)
     model_kmeans.fit(X)
     cluster_labels = model_kmeans.labels_
