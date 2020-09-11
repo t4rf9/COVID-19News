@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EpiGraphViewModel extends ViewModel {
-    // TODO: Implement the ViewModel
 
     public EpiGraphViewModel(){
 

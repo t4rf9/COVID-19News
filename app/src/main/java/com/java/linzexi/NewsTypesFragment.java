@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.SearchView;
 
@@ -18,8 +17,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.tabs.TabLayout;
 import com.java.linzexi.database.AppDatabase;
-import com.java.linzexi.database.AppDatabase_Impl;
-import com.java.linzexi.database.NewsDao;
 import com.java.linzexi.database.NewsEntity;
 
 import java.util.List;

@@ -1,26 +1,14 @@
 package com.java.linzexi;
 
-import androidx.lifecycle.ViewModelProviders;
-
-import android.annotation.SuppressLint;
-import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Handler;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.PopupWindow;
-import android.widget.TextView;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.google.android.material.tabs.TabLayout;

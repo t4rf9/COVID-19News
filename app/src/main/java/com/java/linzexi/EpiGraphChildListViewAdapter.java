@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class EpiGraphChildListViewAdapter extends BaseAdapter {
     List<SearchResultRelationModel> srrl = new ArrayList<>();

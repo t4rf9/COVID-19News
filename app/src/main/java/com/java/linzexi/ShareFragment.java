@@ -1,21 +1,11 @@
 package com.java.linzexi;
 
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.

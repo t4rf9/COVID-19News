@@ -1,7 +1,6 @@
 package com.java.linzexi;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toolbar;
-
 
 import com.java.linzexi.JSONHandler.NewsEntityLoader;
 import com.java.linzexi.database.AppDatabase;

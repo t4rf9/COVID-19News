@@ -1,15 +1,7 @@
 package com.java.linzexi;
 
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +9,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ExpandableListView;
 import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import static androidx.core.content.ContextCompat.getSystemService;
 
 public class EpiGraphFragment extends Fragment {
 
