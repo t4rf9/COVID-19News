@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@+id/button_edit_news_types"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_news"
         app:tabGravity="start"
         app:tabMode="scrollable">
 
@@ -28,7 +28,7 @@
         android:background="#00FFFFFF"
         android:foreground="@android:drawable/ic_menu_sort_by_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/search_news" />
 
 
     <SearchView
@@ -37,7 +37,7 @@
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tabLayout_news_types" />
+        app:layout_constraintBottom_toTopOf="@id/tabLayout_news_types" />
 
 
     <FrameLayout
@@ -46,7 +46,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_news" />
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout_news_types" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
