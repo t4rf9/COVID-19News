@@ -81,7 +81,9 @@
                     android:id="@+id/detail_introduction"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:lineSpacingExtra="8sp"
+                    android:textIsSelectable="true" />
 
                 <Space
                     android:layout_width="15dp"

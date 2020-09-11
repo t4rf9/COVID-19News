@@ -129,29 +129,5 @@ public class EpiDataFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        // TODO: Use the ViewModel
-
     }
-
-//    public void popup(final EpiDataModel model){
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                pop_text.setText(model.place + " confirmed:" + model.getLastData().confirmed);
-//
-//                popupWindow.showAsDropDown(dataRecyclerView);
-//            }
-//        },500);
-//
-//    }
-
-//    class MyDecoration extends RecyclerView.ItemDecoration {
-//        @Override
-//        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-//            super.getItemOffsets(outRect, view, parent, state);
-//            outRect.set(0,0,0, 15);
-//        }
-//    }
-
 }
