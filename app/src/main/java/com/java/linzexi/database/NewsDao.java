@@ -22,6 +22,9 @@ public interface NewsDao {
     @Query("select * from NewsEntity where type = :type order by time desc limit :size offset :offset")
     List<NewsEntity> loadNews(final String type, final int offset, final int size);
 
+    @Query("select * from NewsEntity where type = :type order by time desc")
+    List<NewsEntity> loadNewsByType(final String type);
+
     @Query("select * from NewsEntity where _id = :id")
     NewsEntity loadNews(final String id);
 

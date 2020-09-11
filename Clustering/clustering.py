@@ -21,10 +21,14 @@ if __name__ == "__main__":
     vectorizer = TfidfVectorizer(tokenizer=jieba_cut, use_idf=True)
     X = vectorizer.fit_transform([event["title"] for event in event_list])
 
-    n_clusters = 2
+    n_clusters = 5
     model_kmeans = KMeans(n_clusters=n_clusters)
     model_kmeans.fit(X)
+
     cluster_labels = model_kmeans.labels_
+    file = open("cluster_labels.json", "w")
+    json.dump(cluster_labels)
+
     word_vectors = vectorizer.get_feature_names()  # 词向量
     word_values = X.toarray()  # 向量值
     text_matrix = np.hstack((word_values, cluster_labels.reshape(word_values.shape[0], 1)))  # 将向量值和标签值合并为新的矩阵
@@ -34,9 +38,16 @@ if __name__ == "__main__":
     print(dataframe.head(1))  # 打印输出数据框第1条数据
 
     # 聚类结果分析
+
+    word_weight = np.sum(dataframe.drop('cluster_labels', axis=1))
+
+    file = open("clusters.txt", "w")
     for i in range(n_clusters):
         cluster = dataframe[dataframe['cluster_labels'] == i].drop('cluster_labels', axis=1)
-        word_weight = np.sum(cluster, axis=0)
-        print("CLUSTER" + str(i) + ":")
-        print(word_weight.sort_values(ascending=False)[:5])
-        print()
+        word_weight_cluster = np.sum(cluster, axis=0)
+        word_weight_cluster += 10 * word_weight_cluster / word_weight
+
+        print("CLUSTER" + str(i) + ":", file=file)
+        print(word_weight_cluster.sort_values(ascending=False)[:10], file=file)
+        print(file=file)
+    file.close()
