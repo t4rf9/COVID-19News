@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         final TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            private Fragment[] fragments = new Fragment[4];
+            private Fragment[] fragments = new Fragment[5];
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -41,8 +41,11 @@ public class MainActivity extends AppCompatActivity {
                         case 3:
                             fragments[pos] = ScholarsFragment.newInstance();
                             break;
-                        default:
+                        case 0:
                             fragments[pos] = NewsTypesFragment.newInstance();
+                            break;
+                        default:
+                            fragments[pos] = ClusteringFragment.newInstance();
                             break;
                     }
                 }

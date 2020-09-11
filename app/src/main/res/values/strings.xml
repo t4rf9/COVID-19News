@@ -6,6 +6,7 @@
     <string name="tab_epi_data">疫情数据</string>
     <string name="tab_epi_graph">疫情图谱</string>
     <string name="tab_scholars">知疫学者</string>
+    <string name="tab_clustering">事件聚焦</string>
     <string name="tab_news_type_news">新闻</string>
     <string name="tab_news_type_paper">论文</string>
     <string name="complete">完成</string>
