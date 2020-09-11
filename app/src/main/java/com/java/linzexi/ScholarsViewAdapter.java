@@ -6,7 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import android.content.Context;
+import android.widget.ArrayAdapter;
+
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -16,11 +21,10 @@ import java.util.List;
 
 public class ScholarsViewAdapter extends BaseAdapter {
     List<ScholarsModel> list = new ArrayList<>();
-    private Activity mActivity;
 
-    public ScholarsViewAdapter(List<ScholarsModel> l, Activity m){
+
+    public ScholarsViewAdapter(List<ScholarsModel> l){
         list.addAll(l);
-        mActivity = m;
     }
 
     @Override
