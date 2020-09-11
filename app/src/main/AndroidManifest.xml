@@ -52,6 +52,9 @@
                 android:value=".NewsSearchResultActivity" />
 
         </activity>
+        <provider android:name=".NewsSearchSuggestionProvider"
+            android:authorities="com.java.linzexi.NewsSearchSuggestionProvider" />
+
 
         <meta-data
             android:name="preloaded_fonts"

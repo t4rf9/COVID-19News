@@ -6,6 +6,7 @@ import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.SearchRecentSuggestions;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -43,6 +44,10 @@ public class NewsSearchResultActivity extends ListActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             final AppDatabase db = ((COVID19NewsApp) getApplication()).getDatabase();
             final String query = intent.getStringExtra(SearchManager.QUERY);
+
+            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+                    NewsSearchSuggestionProvider.AUTHORITY, NewsSearchSuggestionProvider.MODE);
+            suggestions.saveRecentQuery(query, null);
 
             Thread thread = new Thread(new Runnable() {
                 @Override
