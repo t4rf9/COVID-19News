@@ -1,5 +1,6 @@
 package com.java.linzexi;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.tabs.TabLayout;
+import com.java.linzexi.database.AppDatabase;
+import com.java.linzexi.database.AppDatabase_Impl;
 import com.java.linzexi.database.NewsDao;
 import com.java.linzexi.database.NewsEntity;
 
@@ -52,7 +55,9 @@ public class NewsTypesFragment extends Fragment {
     }
 
     public void search(String s){
-        //List<NewsEntity> li = searchNewsTitle(s);
+        AppDatabase db = ((COVID19NewsApp)requireActivity().getApplication()).getDatabase();
+        List<NewsEntity> resList = db.newsDao().searchNewsTitle(s);
+
     }
 
     @Override
@@ -60,19 +65,22 @@ public class NewsTypesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_news_types, container, false);
+
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) requireActivity().getSystemService(Context.SEARCH_SERVICE);
         final SearchView searchView = view.findViewById(R.id.search_news);
         searchView.setSubmitButtonEnabled(true);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().getComponentName()));
+        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
         //searchView.onActionViewExpanded();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 search(s);
-                if(searchView != null){
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    if(imm != null){
-                        imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
-                        searchView.clearFocus();
-                    }
+                InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if(imm != null){
+                    imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
+                    searchView.clearFocus();
                 }
                 return false;
             }
@@ -81,7 +89,7 @@ public class NewsTypesFragment extends Fragment {
             public boolean onQueryTextChange(String s) {
                 return false;
             }
-        });
+        });*/
         return view;
     }
 
