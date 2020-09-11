@@ -28,9 +28,9 @@ public class ScholarsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.scholars_fragment, container, false);
+        View view = inflater.inflate(R.layout.scholars_fragment, container, false);
         ListView listView = view.findViewById(R.id.scholars_list);
-        listView.setAdapter(new ScholarsViewAdapter(mViewModel.list));
+        listView.setAdapter(new ScholarsViewAdapter(mViewModel.list, requireActivity()));
         return view;
     }
 
