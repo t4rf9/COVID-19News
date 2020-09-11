@@ -3,11 +3,8 @@ package com.java.linzexi;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.widget.ListView;
 
 import androidx.lifecycle.ViewModel;
-
-import com.java.linzexi.database.AppDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,52 +21,52 @@ public class ClusteringViewModel extends ViewModel {
     Context mContext = null;
     String JSONstring;
 
-    public String getJSON(){
+    public String getJSON() {
         StringBuilder stringBuilder = new StringBuilder();
-        try{
+        try {
             AssetManager assetManager = mContext.getAssets();
             BufferedReader bf = new BufferedReader(new InputStreamReader(assetManager.open("clusterK_kwV_eventV.json")));
             String line;
-            while((line = bf.readLine()) != null){
+            while ((line = bf.readLine()) != null) {
                 stringBuilder.append(line);
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return stringBuilder.toString();
     }
 
-    private void loadJSON(){
-        try{
+    private void loadJSON() {
+        try {
             JSONArray arr = new JSONArray(JSONstring);
-            for(int i = 0; i < arr.length(); i ++){
+            for (int i = 0; i < arr.length(); i++) {
                 JSONArray ar = arr.getJSONArray(i);
                 JSONArray a = ar.getJSONArray(0);
                 List<String> kw = new ArrayList<>();
-                for(int j = 0; j < a.length(); j ++)
+                for (int j = 0; j < a.length(); j++)
                     kw.add(a.getString(j));
                 JSONArray b = ar.getJSONArray(1);
                 List<String> ev = new ArrayList<>();
-                for(int j = 0; j < b.length(); j ++)
+                for (int j = 0; j < b.length(); j++)
                     ev.add(b.getString(j));
                 list.add(new ClusteringModel(kw, ev));
             }
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
 
-    public List<ClusteringModel> getList(){
+    public List<ClusteringModel> getList() {
         return list;
     }
 
-    public ClusteringViewModel(){
+    public ClusteringViewModel() {
 
 
     }
 
-    public void run(Context m){
+    public void run(Context m) {
         mContext = m;
         JSONstring = getJSON();
         loadJSON();

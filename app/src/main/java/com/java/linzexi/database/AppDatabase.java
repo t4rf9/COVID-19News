@@ -17,7 +17,7 @@ import com.java.linzexi.JSONHandler.AllNewsImporter;
 
 import java.util.List;
 
-@Database(entities = {NewsEntity.class}, version = 2)
+@Database(entities = {NewsEntity.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase sInstance;
 
@@ -68,7 +68,6 @@ public abstract class AppDatabase extends RoomDatabase {
                         });
                     }
                 })
-                .addMigrations(MIGRATION_1_2)
                 //.allowMainThreadQueries()
                 .build();
     }
@@ -98,12 +97,4 @@ public abstract class AppDatabase extends RoomDatabase {
             }
         });
     }
-
-    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
-        @Override
-        public void migrate(SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE NewsEntity ADD COLUMN tflag BIGINT");
-        }
-    };
-
 }

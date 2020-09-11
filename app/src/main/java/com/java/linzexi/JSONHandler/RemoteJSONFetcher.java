@@ -66,7 +66,7 @@ public class RemoteJSONFetcher {
         });
         thread.start();
         try {
-            thread.join(4000);
+            thread.join();
         } catch (InterruptedException e) {
             e.printStackTrace(System.err);
         }

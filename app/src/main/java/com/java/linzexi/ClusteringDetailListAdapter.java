@@ -12,7 +12,7 @@ import java.util.List;
 public class ClusteringDetailListAdapter extends BaseAdapter {
     List<String> events = new ArrayList<>();
 
-    public ClusteringDetailListAdapter(List<String> e){
+    public ClusteringDetailListAdapter(List<String> e) {
         events.addAll(e);
     }
 
@@ -33,7 +33,7 @@ public class ClusteringDetailListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if(view == null){
+        if (view == null) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_clustering_detail_list, null, false);
         }
         TextView textView = view.findViewById(R.id.clustering_detail_layout);

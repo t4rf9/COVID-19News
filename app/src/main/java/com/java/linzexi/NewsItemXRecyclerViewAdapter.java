@@ -21,7 +21,6 @@ import java.util.List;
 public class NewsItemXRecyclerViewAdapter extends RecyclerView.Adapter<NewsItemXRecyclerViewAdapter.XRecyclerViewHolder> {
 
     private Activity mActivity;
-    private List<NewsEntity> browsingHistory = new ArrayList<>();
 
     private List<NewsEntity> newsEntityList = new ArrayList<>();
 

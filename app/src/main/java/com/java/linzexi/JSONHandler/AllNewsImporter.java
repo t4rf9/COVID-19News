@@ -35,9 +35,8 @@ public class AllNewsImporter {
                 String type = object.getString("type");
                 String title = object.getString("title");
                 String time = object.getString("time");
-                Long tflag = object.getLong("tflag");
 
-                list.add(new NewsEntity(false, _id, type, time, tflag, null, title, null));
+                list.add(new NewsEntity(false, _id, type, time, null, title, null));
             }
         } catch (JSONException | NullPointerException e) {
             e.printStackTrace(System.err);

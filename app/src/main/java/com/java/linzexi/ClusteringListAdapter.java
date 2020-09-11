@@ -8,12 +8,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class ClusteringListAdapter extends BaseAdapter {
     List<ClusteringModel> list = new ArrayList<>();
 
-    public ClusteringListAdapter(List<ClusteringModel> l){
+    public ClusteringListAdapter(List<ClusteringModel> l) {
         list.addAll(l);
     }
 
@@ -34,7 +33,7 @@ public class ClusteringListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if(view == null){
+        if (view == null) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_clustering_list, null, false);
         }
         TextView textView = view.findViewById(R.id.clustering_layout);

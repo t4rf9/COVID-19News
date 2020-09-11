@@ -26,12 +26,11 @@ public class NewsEntityLoader {
             String _id = object.getString("_id");
             String type = object.getString("type");
             String time = object.getString("time").replaceAll("-", "/");
-            Long tflag = object.getLong("tflag");
             String source = object.getString("source");
             String title = object.getString("title");
             String content = object.getString("content");
 
-            res = new NewsEntity(true, _id, type, time, tflag, source, title, content);
+            res = new NewsEntity(true, _id, type, time, source, title, content);
 
         } catch (JSONException e) {
             e.printStackTrace(System.err);

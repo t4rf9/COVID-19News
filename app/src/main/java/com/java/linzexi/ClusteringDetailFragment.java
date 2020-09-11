@@ -17,7 +17,8 @@ public class ClusteringDetailFragment extends Fragment {
 
     List<String> event = new ArrayList<>();
 
-    public ClusteringDetailFragment(){}
+    public ClusteringDetailFragment() {
+    }
 
     public static ClusteringDetailFragment newInstance(List<String> events) {
         ClusteringDetailFragment fragment = new ClusteringDetailFragment();
@@ -26,6 +27,7 @@ public class ClusteringDetailFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
