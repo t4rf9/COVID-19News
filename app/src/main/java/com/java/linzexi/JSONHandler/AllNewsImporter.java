@@ -39,7 +39,7 @@ public class AllNewsImporter {
 
                 list.add(new NewsEntity(false, _id, type, time, tflag, null, title, null));
             }
-        } catch (JSONException e) {
+        } catch (JSONException | NullPointerException e) {
             e.printStackTrace(System.err);
         }
         return list;

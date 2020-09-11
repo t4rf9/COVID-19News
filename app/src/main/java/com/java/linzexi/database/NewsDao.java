@@ -19,15 +19,15 @@ public interface NewsDao {
     @Update
     void updateNews(NewsEntity... newsEntities);
 
-    @Query("select * from NewsEntity where type = :type order by tflag desc limit :size offset :offset")
+    @Query("select * from NewsEntity where type = :type order by time desc limit :size offset :offset")
     List<NewsEntity> loadNews(final String type, final int offset, final int size);
 
     @Query("select * from NewsEntity where _id = :id")
     NewsEntity loadNews(final String id);
 
-    @Query("select * from NewsEntity where (type = 'paper' or type = 'news') and title like '%'||:query||'%' order by tflag desc")
+    @Query("select * from NewsEntity where (type = 'paper' or type = 'news') and title like '%'||:query||'%' order by time desc")
     List<NewsEntity> searchNewsTitle(final String query);
 
-    @Query("select * from NewsEntity where (type = 'paper' or type = 'news') and title like '%'||:query||'%' order by tflag desc limit :size")
+    @Query("select * from NewsEntity where (type = 'paper' or type = 'news') and title like '%'||:query||'%' order by time desc limit :size")
     List<NewsEntity> searchNewsTitle(final String query, final int size);
 }
