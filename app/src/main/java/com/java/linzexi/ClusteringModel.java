@@ -9,8 +9,14 @@ public class ClusteringModel {
     List<String> events = new ArrayList<>();
 
     public ClusteringModel(List<String> keys, List<String> _events) {
-        for (int i = 0; i < keys.size(); i++) {
-            keyWords += keys.get(i) + ",";
+        keyWords = keys.get(0);
+        int m = keys.size() / 2;
+        for (int i = 1; i < m; i++) {
+            keyWords += "  " + keys.get(i);
+        }
+        keyWords += "\n" + keys.get(m);
+        for (int i = m + 1; i < keys.size(); i++) {
+            keyWords += "  " + keys.get(i);
         }
         events.addAll(_events);
     }
