@@ -26,8 +26,16 @@ if __name__ == "__main__":
     model_kmeans.fit(X)
 
     cluster_labels = model_kmeans.labels_
-    file = open("cluster_labels.json", "w")
-    json.dump(cluster_labels)
+
+    eventK_clusterV = {}
+    clusterK_kwV_eventV = [[[], []] for i in range(n_clusters)]
+    cluster_labels_list = cluster_labels.tolist()
+    for i in range(len(event_list)):
+        eventK_clusterV[event_list[i]["_id"]] = cluster_labels_list[i]
+        clusterK_kwV_eventV[cluster_labels_list[i]][1].append(event_list[i]["_id"])
+    file = open("eventK_clusterV.json", "w")
+    json.dump(eventK_clusterV, file)
+    file.close()
 
     word_vectors = vectorizer.get_feature_names()  # 词向量
     word_values = X.toarray()  # 向量值
@@ -41,13 +49,13 @@ if __name__ == "__main__":
 
     word_weight = np.sum(dataframe.drop('cluster_labels', axis=1))
 
-    file = open("clusters.txt", "w")
     for i in range(n_clusters):
         cluster = dataframe[dataframe['cluster_labels'] == i].drop('cluster_labels', axis=1)
         word_weight_cluster = np.sum(cluster, axis=0)
         word_weight_cluster += 10 * word_weight_cluster / word_weight
 
-        print("CLUSTER" + str(i) + ":", file=file)
-        print(word_weight_cluster.sort_values(ascending=False)[:10], file=file)
-        print(file=file)
+        clusterK_kwV_eventV[i][0] = [list(item)[0] for item in
+                                     word_weight_cluster.sort_values(ascending=False)[:10].to_dict().keys()]
+    file = open("clusterK_kwV_eventV.json", "w")
+    json.dump(clusterK_kwV_eventV, file)
     file.close()
