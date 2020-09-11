@@ -9,11 +9,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.java.linzexi.AppExecutors;
-import com.java.linzexi.JSONHandler.AllNewsImporter;
+import com.java.linzexi.JSONHandler.AllNewsLoader;
 
 import java.util.List;
 
@@ -59,7 +58,7 @@ public abstract class AppDatabase extends RoomDatabase {
                                 AppDatabase database = AppDatabase.getInstance(appContext, executors);
 
                                 // without content, full time, source
-                                List<NewsEntity> newsEntities = AllNewsImporter.getAllNewsList();
+                                List<NewsEntity> newsEntities = AllNewsLoader.getAllNewsList();
                                 insertData(database, newsEntities);
 
                                 // notify that the database was created and it's ready to be used

@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AllNewsImporter {
+public class AllNewsLoader {
     private static URL url;
 
     static {

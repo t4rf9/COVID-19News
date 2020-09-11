@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClusteringModel {
-    //List<String> keyWords = new ArrayList<>();
     String keyWords = "";
     List<String> events = new ArrayList<>();
 
