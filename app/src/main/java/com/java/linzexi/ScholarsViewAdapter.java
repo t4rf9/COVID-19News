@@ -1,5 +1,6 @@
 package com.java.linzexi;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,15 +9,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ScholarsViewAdapter extends BaseAdapter {
     List<ScholarsModel> list = new ArrayList<>();
+    private Activity mActivity;
 
-    public ScholarsViewAdapter(List<ScholarsModel> l){
+    public ScholarsViewAdapter(List<ScholarsModel> l, Activity m){
         list.addAll(l);
+        mActivity = m;
     }
 
     @Override
@@ -46,7 +50,9 @@ public class ScholarsViewAdapter extends BaseAdapter {
             textView.setText(list.get(i).name);
         ImageView imageView = view.findViewById(R.id.photo);
         if(list.get(i).avatar != null)
-            Glide.with(viewGroup.getContext()).load(list.get(i).avatar).into(imageView);
+            Glide.with(viewGroup.getContext()).load(list.get(i).avatar).apply(new RequestOptions().override(185, 300)).into(imageView);
+        textView = view.findViewById(R.id.posi);
+        textView.setText(list.get(i).position);
         return view;
     }
 }

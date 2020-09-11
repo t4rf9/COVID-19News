@@ -41,7 +41,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         String title = intent.getStringExtra("title");
         String content= intent.getStringExtra("content");
 
-        shared_str = title + " " + content + " " + source + " " + time;
+        shared_str = title + "\n" + content + " " + source + " " + time;
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
