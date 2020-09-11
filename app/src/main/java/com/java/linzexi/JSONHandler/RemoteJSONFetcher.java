@@ -1,7 +1,5 @@
 package com.java.linzexi.JSONHandler;
 
-import com.java.linzexi.AppExecutors;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

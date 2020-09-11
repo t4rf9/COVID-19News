@@ -62,12 +62,12 @@ public class NewsItemXRecyclerViewFragment extends Fragment {
                             String type = object.getString("type");
                             String title = object.getString("title");
                             String time = object.getString("time").replaceAll("-", "/");
-                            System.err.println(time);
+                            Long tflag = object.getLong("tflag");
                             String source = object.getString("source");
                             String content = object.getString("content");
 
                             if (db.newsDao().loadNews(_id) == null) {
-                                db.newsDao().insertNews(new NewsEntity(false, _id, type, time, source, title, content));
+                                db.newsDao().insertNews(new NewsEntity(false, _id, type, time, tflag, source, title, content));
                             } else {
                                 return;
                             }

@@ -17,17 +17,20 @@ public class NewsEntity {
 
     private String time;
 
+    private Long tflag;
+
     private String source;
 
     private String title;
 
     private String content;
 
-    public NewsEntity(final Boolean read, final String _id, final String type, final String time, final String source, final String title, final String content) {
+    public NewsEntity(final Boolean read, final String _id, final String type, final String time, final Long tflag, final String source, final String title, final String content) {
         this.read = read;
         this._id = _id;
         this.type = type;
         this.time = time;
+        this.tflag = tflag;
         this.source = source;
         this.title = title;
         this.content = content;
@@ -39,6 +42,7 @@ public class NewsEntity {
         this._id = newsEntity._id;
         this.type = newsEntity.type;
         this.time = newsEntity.time;
+        this.tflag = newsEntity.tflag;
         this.source = newsEntity.source;
         this.title = newsEntity.title;
         this.content = newsEntity.content;
@@ -74,6 +78,14 @@ public class NewsEntity {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public Long getTflag() {
+        return tflag;
+    }
+
+    public void setTflag(Long tflag) {
+        this.tflag = tflag;
     }
 
     public String getSource() {

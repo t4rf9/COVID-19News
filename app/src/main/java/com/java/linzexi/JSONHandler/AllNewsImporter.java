@@ -1,6 +1,5 @@
 package com.java.linzexi.JSONHandler;
 
-import com.java.linzexi.AppExecutors;
 import com.java.linzexi.database.NewsEntity;
 
 import org.json.JSONArray;
@@ -36,8 +35,9 @@ public class AllNewsImporter {
                 String type = object.getString("type");
                 String title = object.getString("title");
                 String time = object.getString("time");
+                Long tflag = object.getLong("tflag");
 
-                list.add(new NewsEntity(false, _id, type, time, null, title, null));
+                list.add(new NewsEntity(false, _id, type, time, tflag, null, title, null));
             }
         } catch (JSONException e) {
             e.printStackTrace(System.err);
