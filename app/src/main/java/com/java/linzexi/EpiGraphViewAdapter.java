@@ -16,11 +16,11 @@ import java.util.List;
 public class EpiGraphViewAdapter extends BaseExpandableListAdapter {
     List<SearchResultModel> srl = new ArrayList<>();
 
-    public EpiGraphViewAdapter(List<SearchResultModel> l){
+    public EpiGraphViewAdapter(List<SearchResultModel> l) {
         srl.addAll(l);
     }
 
-    public void changeAdapter(List<SearchResultModel> l){
+    public void changeAdapter(List<SearchResultModel> l) {
         srl.clear();
         srl.addAll(l);
     }
@@ -42,7 +42,7 @@ public class EpiGraphViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int i, int i1) {
-        switch (i1){
+        switch (i1) {
             case 0:
                 return srl.get(i).name;
             case 1:
@@ -73,7 +73,7 @@ public class EpiGraphViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
-        if(view == null){
+        if (view == null) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.epi_graph_group_layout, null, false);
         }
         TextView textView = view.findViewById(R.id.group_name);
@@ -83,14 +83,14 @@ public class EpiGraphViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-        if(view == null){
+        if (view == null) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.epi_graph_child_layout, null, false);
         }
 
         TextView textView = view.findViewById(R.id.child_label);
         textView.setText(srl.get(i).name);
         ImageView imageView = view.findViewById(R.id.child_img);
-        if(srl.get(i).img != null)
+        if (srl.get(i).img != null)
             Glide.with(viewGroup.getContext()).load(srl.get(i).img).into(imageView);
         textView = view.findViewById(R.id.child_wiki);
         textView.setText(srl.get(i).wikiInfo);

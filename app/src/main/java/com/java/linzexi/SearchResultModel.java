@@ -15,22 +15,21 @@ public class SearchResultModel {
     String img;
     String properties = "";
     List<SearchResultRelationModel> srl = new ArrayList<>();
-    public SearchResultModel(String _name, String _url, String enwiki, String baidu, String zhwiki, String _properties, JSONArray arr, String _img){
+
+    public SearchResultModel(String _name, String _url, String enwiki, String baidu, String zhwiki, String _properties, JSONArray arr, String _img) {
         name = _name;
         url = _url;
         wikiInfo = "";
-        if(!enwiki.equals("")){
+        if (!enwiki.equals("")) {
             wikiInfo = enwiki;
-        }
-        else if(!baidu.equals("")) {
+        } else if (!baidu.equals("")) {
             wikiInfo = baidu;
-        }
-        else if(!zhwiki.equals("")){
+        } else if (!zhwiki.equals("")) {
             wikiInfo = zhwiki;
         }
 
         img = _img;
-        try{
+        try {
             if (_properties != null) {
                 JSONObject pro = new JSONObject(_properties);
                 Iterator<String> keys = pro.keys();
@@ -40,7 +39,7 @@ public class SearchResultModel {
                 }
             }
 
-            for(int i = 0; i < arr.length(); i ++){
+            for (int i = 0; i < arr.length(); i++) {
                 JSONObject ob = arr.getJSONObject(i);
                 String relationOB = ob.getString("relation");
                 String urlOB = ob.getString("url");
@@ -48,7 +47,7 @@ public class SearchResultModel {
                 Boolean forwardOB = ob.getBoolean("forward");
                 srl.add(new SearchResultRelationModel(relationOB, urlOB, labelOB, forwardOB));
             }
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }

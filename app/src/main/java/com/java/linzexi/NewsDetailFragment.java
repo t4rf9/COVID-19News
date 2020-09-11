@@ -36,9 +36,9 @@ public class NewsDetailFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param time The time of the news.
-     * @param source The source of the news.
-     * @param title The title of the news.
+     * @param time    The time of the news.
+     * @param source  The source of the news.
+     * @param title   The title of the news.
      * @param content The content of the news.
      * @return A new instance of fragment NewsDetailFragment.
      */

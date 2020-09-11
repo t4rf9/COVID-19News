@@ -12,25 +12,14 @@ import java.util.List;
 public class EpiGraphChildListViewAdapter extends BaseAdapter {
     List<SearchResultRelationModel> srrl = new ArrayList<>();
 
-    public EpiGraphChildListViewAdapter(List<SearchResultRelationModel> l){
+    public EpiGraphChildListViewAdapter(List<SearchResultRelationModel> l) {
         srrl.addAll(l);
-        //System.out.println(srrl.size() + "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
     }
-//    @Override
-//    public boolean areAllItemsEnabled() {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean isEnabled(int position) {
-//        return false;
-//    }
 
     @Override
     public int getCount() {
         return srrl.size();
     }
-
 
 
     @Override
@@ -45,14 +34,14 @@ public class EpiGraphChildListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if(view == null){
+        if (view == null) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.epi_graph_child_list_layout, null, false);
         }
 
         TextView textView = view.findViewById(R.id.relation);
         textView.setText(srrl.get(i).relation);
         textView = view.findViewById(R.id.arrow);
-        if(srrl.get(i).forward)
+        if (srrl.get(i).forward)
             textView.setText("\u2192");
         else
             textView.setText("\u2190");

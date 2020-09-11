@@ -12,12 +12,13 @@ public class EpiDataDayModel {
         cured = _cured;
         dead = _dead;
     }
-    public int getData(int type){
-        if(type == 0)
+
+    public int getData(int type) {
+        if (type == 0)
             return confirmed;
-        if(type == 1)
+        if (type == 1)
             return suspected;
-        if(type == 2)
+        if (type == 2)
             return cured;
         return dead;
     }

@@ -113,7 +113,7 @@ public class TypeEditFragment extends Fragment {
         });
 
         final Button button_news = view.findViewById(R.id.button_news_type_news);
-        if(news)
+        if (news)
             button_news.setAnimation(shake);
         button_news.setBackgroundColor(requireActivity().getColor(news ? R.color.colorTypeSelected : R.color.colorTypeUnselected));
         button_news.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +132,7 @@ public class TypeEditFragment extends Fragment {
         });
 
         final Button button_paper = view.findViewById(R.id.button_news_type_paper);
-        if(paper)
+        if (paper)
             button_paper.setAnimation(shake);
         button_paper.setBackgroundColor(requireActivity().getColor(paper ? R.color.colorTypeSelected : R.color.colorTypeUnselected));
         button_paper.setOnClickListener(new View.OnClickListener() {

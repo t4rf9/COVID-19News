@@ -39,7 +39,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         String time = intent.getStringExtra("time");
         String source = intent.getStringExtra("source");
         String title = intent.getStringExtra("title");
-        String content= intent.getStringExtra("content");
+        String content = intent.getStringExtra("content");
 
         shared_str = title + "\n" + content + " " + source + " " + time;
 
@@ -48,6 +48,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.fragment_news_detail, NewsDetailFragment.newInstance(time, source, title, content));
         fragmentTransaction.commit();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -77,7 +78,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void share(){
+    public void share() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         List<ResolveInfo> resolveInfos = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
@@ -115,7 +116,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         //startActivity(Intent.createChooser(intent, getTitle()));
     }
 
-    private void addShareIntent(List<Intent> list,ActivityInfo ainfo) {
+    private void addShareIntent(List<Intent> list, ActivityInfo ainfo) {
         Intent target = new Intent(Intent.ACTION_SEND);
         target.setType("text/plain");
         target.putExtra(Intent.EXTRA_TEXT, shared_str);

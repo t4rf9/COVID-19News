@@ -13,17 +13,17 @@ import java.util.List;
 
 public class EpiGraphViewModel extends ViewModel {
 
-    public EpiGraphViewModel(){
+    public EpiGraphViewModel() {
 
     }
 
-    public List<SearchResultModel> getSearchResult(String search){
+    public List<SearchResultModel> getSearchResult(String search) {
         List<SearchResultModel> srl = new ArrayList<>();
         String getResult = new RemoteJSONFetcher("https://innovaapi.aminer.cn/covid/api/v1/pneumonia/entityquery?entity=" + search).getJSONFileString();
-        try{
+        try {
             JSONObject obj = new JSONObject(getResult);
             JSONArray arr = obj.getJSONArray("data");
-            for(int i = 0; i < arr.length(); i ++){
+            for (int i = 0; i < arr.length(); i++) {
                 JSONObject ob = arr.getJSONObject(i);
                 String name = ob.getString("label");
                 String url = ob.getString("url");
@@ -38,7 +38,7 @@ public class EpiGraphViewModel extends ViewModel {
                 srl.add(new SearchResultModel(name, url, enwiki, baidu, zhwiki, properties, arr_COVID, img));
             }
 
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return srl;

@@ -1,6 +1,6 @@
 package com.java.linzexi;
 
-public class ScholarsModel implements Comparable<ScholarsModel>{
+public class ScholarsModel implements Comparable<ScholarsModel> {
     String avatar;
     String id;
     String name;
@@ -9,7 +9,8 @@ public class ScholarsModel implements Comparable<ScholarsModel>{
     String position;
     String introduction;
     Boolean is_passedaway;
-    public ScholarsModel(String _avatar, String _id, String _name, String _name_zh, int _activity, String _position, String _introduction, Boolean _is_passedaway){
+
+    public ScholarsModel(String _avatar, String _id, String _name, String _name_zh, int _activity, String _position, String _introduction, Boolean _is_passedaway) {
         avatar = _avatar;
         id = _id;
         name = _name;

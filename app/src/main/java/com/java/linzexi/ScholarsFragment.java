@@ -1,19 +1,17 @@
 package com.java.linzexi;
 
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +47,7 @@ public class ScholarsFragment extends Fragment {
                 intent.putExtra("introduction", list.get(i).introduction);
                 intent.putExtra("avatar", list.get(i).avatar);
                 intent.putExtra("position", list.get(i).position);
-                getActivity().startActivity(intent);
+                requireActivity().startActivity(intent);
             }
         });
         return view;

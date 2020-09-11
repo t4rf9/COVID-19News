@@ -106,4 +106,5 @@
     </string>
     <string name="title_activity_news_search_result">NewsSearchResultActivity</string>
     <string name="search_hint">搜索</string>
+    <string name="photo">Photo</string>
 </resources>

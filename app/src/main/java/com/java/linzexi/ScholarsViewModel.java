@@ -27,6 +27,7 @@ public class ScholarsViewModel extends ViewModel {
                 String position = arr.getJSONObject(i).getJSONObject("profile").getString("position");
                 String introduction = arr.getJSONObject(i).getJSONObject("profile").getString("bio").replaceAll("<br+>", "\n");
                 if (arr.getJSONObject(i).getJSONObject("profile").has("edu")) {
+                    introduction += "\n\n";
                     introduction += arr.getJSONObject(i).getJSONObject("profile").getString("edu").replaceAll("<br+>", "\n");
                 }
                 Boolean is_passedaway = arr.getJSONObject(i).getBoolean("is_passedaway");

@@ -51,8 +51,8 @@ public class NewsTypesFragment extends Fragment {
 
     }
 
-    public void search(String s){
-        AppDatabase db = ((COVID19NewsApp)requireActivity().getApplication()).getDatabase();
+    public void search(String s) {
+        AppDatabase db = ((COVID19NewsApp) requireActivity().getApplication()).getDatabase();
         List<NewsEntity> resList = db.newsDao().searchNewsTitle(s);
 
     }
@@ -61,7 +61,7 @@ public class NewsTypesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_news_types, container, false);
+        View view = inflater.inflate(R.layout.fragment_news_types, container, false);
 
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) requireActivity().getSystemService(Context.SEARCH_SERVICE);

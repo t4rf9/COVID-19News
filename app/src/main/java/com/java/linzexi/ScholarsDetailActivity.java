@@ -1,6 +1,5 @@
 package com.java.linzexi;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,14 +29,15 @@ public class ScholarsDetailActivity extends AppCompatActivity {
         String name = intent.getStringExtra("name");
         String name_zh = intent.getStringExtra("name_zh");
         String introduction = intent.getStringExtra("introduction");
-        String avatar= intent.getStringExtra("avatar");
-        String position= intent.getStringExtra("position");
+        String avatar = intent.getStringExtra("avatar");
+        String position = intent.getStringExtra("position");
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_scholars_detail, ScholarsDetailFragment.newInstance(name, name_zh, introduction, avatar, position));
         fragmentTransaction.commit();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

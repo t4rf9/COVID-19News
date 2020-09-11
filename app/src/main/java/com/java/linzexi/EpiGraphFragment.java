@@ -37,7 +37,7 @@ public class EpiGraphFragment extends Fragment {
 
     }
 
-    public void search(String s){
+    public void search(String s) {
         srl.clear();
         adapter.changeAdapter(srl);
         adapter.notifyDataSetChanged();
@@ -49,7 +49,7 @@ public class EpiGraphFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.epi_graph_fragment, container, false);
+        View view = inflater.inflate(R.layout.epi_graph_fragment, container, false);
 
         listView = (ExpandableListView) view.findViewById(R.id.list);
 
@@ -64,9 +64,9 @@ public class EpiGraphFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 search(s);
-                if(searchView != null){
+                if (searchView != null) {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    if(imm != null){
+                    if (imm != null) {
                         imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
                         searchView.clearFocus();
                     }

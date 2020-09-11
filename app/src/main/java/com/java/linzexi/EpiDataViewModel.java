@@ -124,30 +124,29 @@ public class EpiDataViewModel extends ViewModel {
         Collections.sort(epiDataModelInternational);
     }
 
-    public BarData findData(int place, int type, BarChart bar){
+    public BarData findData(int place, int type, BarChart bar) {
         List<IBarDataSet> sets = new ArrayList<>();
         List<BarEntry> values = new ArrayList<>();
         final List<String> label_name = new ArrayList<>();
         int length = 0;
         int count = 1;
-        if(place == 0){
+        if (place == 0) {
             length = epiDataModelInternational.size();
-            for(int i = 0; i < epiDataModelInternational.size(); i ++){
-                if(epiDataModelInternational.get(i).place.equals("United States of America"))
+            for (int i = 0; i < epiDataModelInternational.size(); i++) {
+                if (epiDataModelInternational.get(i).place.equals("United States of America"))
                     label_name.add("USA");
                 else
                     label_name.add(epiDataModelInternational.get(i).place);
-                values.add(new BarEntry(count ++, epiDataModelInternational.get(i).getLastData().getData(type)));
+                values.add(new BarEntry(count++, epiDataModelInternational.get(i).getLastData().getData(type)));
             }
-        }
-        else{
+        } else {
             length = epiDataModelChinese.size();
-            for(int i = 0; i < epiDataModelChinese.size(); i ++){
+            for (int i = 0; i < epiDataModelChinese.size(); i++) {
                 label_name.add(epiDataModelChinese.get(i).place);
-                values.add(new BarEntry(count ++, epiDataModelChinese.get(i).getLastData().getData(type)));
+                values.add(new BarEntry(count++, epiDataModelChinese.get(i).getLastData().getData(type)));
             }
         }
-        XAxis xAxis =bar.getXAxis();
+        XAxis xAxis = bar.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);  // 设置x轴显示在下方，默认在上方
         xAxis.setDrawGridLines(false); // 将此设置为true，绘制该轴的网格线。
         xAxis.setLabelCount(length);  // 设置x轴上的标签个数
@@ -168,19 +167,19 @@ public class EpiDataViewModel extends ViewModel {
         yAxis_left.setAxisMinimum(0f);  // 设置y轴的最小值
         yAxis_left.setValueFormatter(new LargeValueFormatter());
         BarDataSet barDataSet = null;
-        if(place == 0){
-            if(type == 0)
+        if (place == 0) {
+            if (type == 0)
                 barDataSet = new BarDataSet(values, "各国确诊人数");
-            else if(type == 2)
+            else if (type == 2)
                 barDataSet = new BarDataSet(values, "各国治愈人数");
-            else if(type == 3)
+            else if (type == 3)
                 barDataSet = new BarDataSet(values, "各国死亡人数");
-        }else{
-            if(type == 0)
+        } else {
+            if (type == 0)
                 barDataSet = new BarDataSet(values, "各地确诊人数");
-            else if(type == 2)
+            else if (type == 2)
                 barDataSet = new BarDataSet(values, "各地治愈人数");
-            else if(type == 3)
+            else if (type == 3)
                 barDataSet = new BarDataSet(values, "各地死亡人数");
         }
 

@@ -1,12 +1,10 @@
 package com.java.linzexi;
 
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -63,9 +61,9 @@ public class ScholarsDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_scholars_detail, container, false);
-        if(name_zh == null)
+        if (name_zh == null)
             name_zh = "";
-        if(!name_zh.equals(""))
+        if (!name_zh.equals(""))
             ((TextView) view.findViewById(R.id.detail_name)).setText(name_zh);
         else
             ((TextView) view.findViewById(R.id.detail_name)).setText(name);
@@ -75,7 +73,6 @@ public class ScholarsDetailFragment extends Fragment {
 
         TextView textView_content = view.findViewById(R.id.detail_introduction);
         textView_content.setText(introduction);
-        textView_content.setMovementMethod(ScrollingMovementMethod.getInstance());
 
         return view;
     }

@@ -50,13 +50,12 @@ public class EpiDataFragment extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if(tab.getPosition() == 0){
+                if (tab.getPosition() == 0) {
                     barCharts.showBarChart(confirmedBarChart, mViewModel.findData(0, 0, confirmedBarChart), true);
                     //barCharts.showBarChart(suspectedBatChart, mViewModel.findData(0, 1, suspectedBatChart), true);
                     barCharts.showBarChart(curedBarChart, mViewModel.findData(0, 2, curedBarChart), true);
                     barCharts.showBarChart(deadBarChart, mViewModel.findData(0, 3, deadBarChart), true);
-                }
-                else{
+                } else {
                     barCharts.showBarChart(confirmedBarChart, mViewModel.findData(1, 0, confirmedBarChart), true);
                     //barCharts.showBarChart(suspectedBatChart, mViewModel.findData(1, 1, suspectedBatChart), true);
                     barCharts.showBarChart(curedBarChart, mViewModel.findData(1, 2, curedBarChart), true);
@@ -82,7 +81,6 @@ public class EpiDataFragment extends Fragment {
         //barCharts.showBarChart(suspectedBatChart, mViewModel.findData(0, 1, suspectedBatChart), true);
         barCharts.showBarChart(curedBarChart, mViewModel.findData(0, 2, curedBarChart), true);
         barCharts.showBarChart(deadBarChart, mViewModel.findData(0, 3, deadBarChart), true);
-
 
 
 //        dataRecyclerView = (XRecyclerView) view.findViewById(R.id.rv_epi_data);
