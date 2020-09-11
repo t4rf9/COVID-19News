@@ -25,8 +25,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!--include layout="@layout/content_news_search_result" /-->
-
     <ListView
         android:id="@android:id/list"
         android:layout_width="0dp"
