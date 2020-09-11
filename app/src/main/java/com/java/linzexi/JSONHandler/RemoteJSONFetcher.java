@@ -46,9 +46,9 @@ public class RemoteJSONFetcher {
                         }
 
                         jsonFileString = stringBuilder.toString();
-
                     } catch (Exception e) {
                         e.printStackTrace(System.err);
+                        jsonFileString = null;
                     } finally {
                         if (connection != null) {
                             connection.disconnect();

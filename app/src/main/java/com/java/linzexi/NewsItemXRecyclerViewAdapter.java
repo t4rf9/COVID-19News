@@ -54,30 +54,28 @@ public class NewsItemXRecyclerViewAdapter extends RecyclerView.Adapter<NewsItemX
             holder.textView.setText(title);
         }
         final boolean read = newsEntity.getRead();
-        if (read) {
-            holder.textView.setTextColor(mActivity.getColor(R.color.readNews));
-        }
+        holder.textView.setTextColor(mActivity.getColor(read ? R.color.readNews : R.color.design_default_color_on_secondary));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                holder.textView.setTextColor(mActivity.getColor(R.color.readNews));
-
                 final AppDatabase db = ((COVID19NewsApp) mActivity.getApplication()).getDatabase();
 
-                NewsEntity newsEntity_display;
+                NewsEntity newsEntity_display = newsEntity;
                 if (!read) {
                     final NewsEntity newsEntity_fresh = NewsEntityLoader.getNewsEntity(newsEntity.get_id());
-                    Thread thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            db.newsDao().updateNews(newsEntity_fresh);
-                        }
-                    });
-                    thread.start();
-                    newsEntity_display = newsEntity_fresh;
-                } else {
-                    newsEntity_display = newsEntity;
+                    if (newsEntity_fresh != null) {
+                        Thread thread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                db.newsDao().updateNews(newsEntity_fresh);
+                            }
+                        });
+                        thread.start();
+                        newsEntityList.remove(position);
+                        newsEntityList.add(position, newsEntity_fresh);
+                        newsEntity_display = newsEntity_fresh;
+                        holder.textView.setTextColor(mActivity.getColor(R.color.readNews));
+                    }
                 }
                 Intent intent = new Intent(mActivity, NewsDetailActivity.class);
                 intent.putExtra("time", newsEntity_display.getTime());

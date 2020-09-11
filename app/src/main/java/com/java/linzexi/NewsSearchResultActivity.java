@@ -92,21 +92,21 @@ public class NewsSearchResultActivity extends ListActivity {
                     view.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            textView.setTextColor(getColor(R.color.readNews));
 
-                            NewsEntity newsEntity_display;
+                            NewsEntity newsEntity_display = newsEntity;
                             if (!read) {
                                 final NewsEntity newsEntity_fresh = NewsEntityLoader.getNewsEntity(newsEntity.get_id());
-                                Thread thread = new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        db.newsDao().updateNews(newsEntity_fresh);
-                                    }
-                                });
-                                thread.start();
-                                newsEntity_display = newsEntity_fresh;
-                            } else {
-                                newsEntity_display = newsEntity;
+                                if (newsEntity_fresh != null) {
+                                    Thread thread = new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            db.newsDao().updateNews(newsEntity_fresh);
+                                        }
+                                    });
+                                    thread.start();
+                                    newsEntity_display = newsEntity_fresh;
+                                    textView.setTextColor(getColor(R.color.readNews));
+                                }
                             }
                             Intent intent = new Intent(thisActivity, NewsDetailActivity.class);
                             intent.putExtra("time", newsEntity_display.getTime());
